@@ -2,8 +2,7 @@ name: build-project-actions
 run-name: ${{ github.actor }} is building project Interfaces
 on: [push]
 jobs:
-  check-bats-version:
+  run-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-# это тест 3
