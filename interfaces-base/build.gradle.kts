@@ -55,6 +55,7 @@ application {
 
 // Дополнительные параметры JVM для модульного тестирования
 val testPatchArgs = mutableListOf(
+        // Добавляем права доступа для TestFX
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.windows=org.testfx.junit5",
         "--add-exports", "javafx.graphics/com.sun.javafx.application=org.testfx"
 )
@@ -66,6 +67,10 @@ if (project.hasProperty("headless")) {
     testPatchArgs.add("-Dmonocle.platform=Headless")
     testPatchArgs.add("-Dprism.order=sw")
     testPatchArgs.add("-Dprism.verbose=true")
+
+    // Добавляем права доступа для Monocle
+    testPatchArgs.add("--add-exports")
+    testPatchArgs.add("javafx.graphics/com.sun.glass.ui=org.testfx.monocle")
 }
 
 tasks.test {
