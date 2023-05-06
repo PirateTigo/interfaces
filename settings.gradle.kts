@@ -1,2 +1,3 @@
 rootProject.name = "interfaces"
-include("app")
+
+include("interfaces-base")
