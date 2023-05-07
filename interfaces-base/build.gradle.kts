@@ -55,6 +55,10 @@ application {
     mainClass.set(interfacesMainClass)
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 // Дополнительные параметры JVM для модульного тестирования
 val testPatchArgs = mutableListOf(
         // Добавляем права доступа для TestFX
