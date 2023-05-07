@@ -1,10 +1,12 @@
 plugins {
-    // Применяем плагин для поддержки CLI в Java-приложениях
+    // Поддержка CLI в Java-приложениях
     application
-    // Применяем плагин для упрощения работы с модульной системой Java 9+
+    // Упрощение работы с модульной системой Java 9+
     id("org.javamodularity.moduleplugin") version "1.5.0"
-    // Применяем плагин для упрощения работы с библиотекой JavaFX
+    // Упрощение работы с библиотекой JavaFX
     id("org.openjfx.javafxplugin") version "0.0.13"
+    // Сборка модулей в образ
+    id("org.beryx.jlink") version "2.25.0"
 }
 
 group = "ru.sibsutis.pmik.hmi"
@@ -79,4 +81,33 @@ tasks.test {
 
     // Добавляем дополнительные параметры JVM для модульного тестирования
     jvmArgs(testPatchArgs)
+}
+
+jlink {
+    options.set(listOf(
+            "--compress", "2",
+            "--no-header-files",
+            "--no-man-pages",
+            "--verbose"
+    ))
+    launcher {
+        name = "interfaces"
+        mainClass.set(interfacesMainClass)
+    }
+    jpackage {
+        imageOptions = listOf(
+                "--icon", "src/main/resources/icons/interfaces.ico"
+        )
+        installerOptions = listOf(
+                "--win-dir-chooser",
+                "--win-menu",
+                "--win-shortcut",
+                "--win-shortcut-prompt",
+                "--vendor", "SibSUTIs",
+                "--description", "Program set for interfaces' making rules learning",
+                "--copyright", "SibSUTIs",
+                "--verbose"
+        )
+        installerType = "exe"
+    }
 }
