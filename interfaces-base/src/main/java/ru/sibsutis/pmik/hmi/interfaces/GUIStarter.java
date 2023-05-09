@@ -3,13 +3,10 @@ package ru.sibsutis.pmik.hmi.interfaces;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import ru.sibsutis.pmik.hmi.interfaces.forms.MainForm;
+import ru.sibsutis.pmik.hmi.interfaces.windows.StartWindow;
 
 import java.io.IOException;
 import java.net.URL;
-
-import static ru.sibsutis.pmik.hmi.interfaces.windows.MainWindow.MAIN_FORM_PATH;
-import static ru.sibsutis.pmik.hmi.interfaces.windows.MainWindow.prepareStage;
 
 /**
  * JavaFX приложение "Изучение правил построения интерфейсов".
@@ -27,7 +24,7 @@ public class GUIStarter extends Application {
     public void start(Stage stage) {
         Class<? extends GUIStarter> clazz = getClass();
         URL faviconPath = clazz.getResource(FAVICON_PATH);
-        URL formPath = clazz.getResource(MAIN_FORM_PATH);
+        URL formPath = clazz.getResource(StartWindow.START_FORM_PATH);
 
         if (faviconPath == null) {
             Platform.exit();
@@ -40,12 +37,7 @@ public class GUIStarter extends Application {
         }
 
         try {
-            prepareStage(
-                    stage,
-                    faviconPath,
-                    formPath,
-                    new MainForm()
-            );
+            StartWindow.prepareStage(stage, faviconPath, formPath, this);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
