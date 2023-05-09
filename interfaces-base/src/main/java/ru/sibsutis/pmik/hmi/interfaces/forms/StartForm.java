@@ -21,13 +21,9 @@ import java.util.Objects;
  */
 public class StartForm {
 
-    private static final String STYLES_PATH = "/forms/styles.css";
-
     private static final String MAIN_IMAGE_PATH = "/images/start.png";
 
     private static final String UNIVERSITY_IMAGE_PATH = "/images/university.png";
-
-    private static final String FONT_REGULAR_PATH = "/fonts/Roboto-Regular.ttf";
 
     private static final String UNIVERSITY_URL = "https://sibsutis.ru";
 
@@ -142,7 +138,7 @@ public class StartForm {
         Class<?> clazz = getClass();
 
         // Устанавливаем общие параметры
-        URL stylesPath = Objects.requireNonNull(clazz.getResource(STYLES_PATH));
+        URL stylesPath = Objects.requireNonNull(clazz.getResource(MainForm.STYLES_PATH));
         root.getStylesheets().add(stylesPath.toExternalForm());
         root.setOnKeyPressed(event -> {
             if (Objects.requireNonNull(event.getCode()) == KeyCode.ENTER) {
@@ -156,7 +152,7 @@ public class StartForm {
         startImageView.setImage(startImage);
 
         // Добавляем заголовок
-        URL fontPath = Objects.requireNonNull(clazz.getResource(FONT_REGULAR_PATH));
+        URL fontPath = Objects.requireNonNull(clazz.getResource(MainForm.FONT_REGULAR_PATH));
         Font font = Font.loadFont(fontPath.toExternalForm(), 40);
         header.setFont(font);
 
