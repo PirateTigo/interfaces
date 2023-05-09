@@ -21,8 +21,12 @@
                 <Label fx:id="message" text="Введите код для начала работы"/>
             </HBox>
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 20 0 0 40;">
-                <TextField fx:id="code" promptText="Код" prefWidth="380"/>
+                <VBox>
+                    <TextField fx:id="code" promptText="Код" prefWidth="380"/>
+                    <Label fx:id="error" style="-fx-text-fill: #d35244;"/>
+                </VBox>
             </HBox>
+
             <HBox alignment="CENTER_RIGHT" style="-fx-padding: 160 40 0 0;">
                 <ImageView fx:id="universityImageView"
                            fitHeight="70"

@@ -26,9 +26,10 @@ public class MainWindow {
      * @param stage Контейнер компонентов окна.
      * @param faviconLocation URL размещения иконки приложения.
      * @param mainFormLocation URL размещения fxml-файла описания основной формы.
+     * @return Контроллер формы.
      * @throws IOException Если fxml-файл описания формы недоступен.
      */
-    public static void prepareStage(
+    public static MainForm prepareStage(
             Stage stage,
             URL faviconLocation,
             URL mainFormLocation) throws IOException {
@@ -41,6 +42,7 @@ public class MainWindow {
         stage.getIcons().add(new Image(faviconLocation.toExternalForm()));
         controller.setMainStage(stage);
         controller.setFaviconPath(faviconLocation);
+        return controller;
     }
 
 }
