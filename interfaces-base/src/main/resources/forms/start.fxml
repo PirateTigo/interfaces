@@ -27,7 +27,7 @@
                 </VBox>
             </HBox>
 
-            <HBox alignment="CENTER_RIGHT" style="-fx-padding: 160 40 0 0;">
+            <HBox alignment="CENTER_RIGHT" style="-fx-padding: 140 40 0 0;">
                 <ImageView fx:id="universityImageView"
                            fitHeight="70"
                            fitWidth="70"
