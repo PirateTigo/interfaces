@@ -1,9 +1,12 @@
 package ru.sibsutis.pmik.hmi.interfaces.windows;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
+import ru.sibsutis.pmik.hmi.interfaces.forms.StartForm;
 
 import java.io.IOException;
 
@@ -86,6 +90,7 @@ public class StartWindowTest extends InterfacesTest {
         Label header = (Label) windowScene.lookup("#header");
         Label message = (Label) windowScene.lookup("#message");
         TextField code = (TextField) windowScene.lookup("#code");
+        Label error = (Label) windowScene.lookup("#error");
         ImageView universityImageView = (ImageView) windowScene.lookup("#universityImageView");
 
         // assert
@@ -93,6 +98,7 @@ public class StartWindowTest extends InterfacesTest {
         Assertions.assertNotNull(header);
         Assertions.assertNotNull(message);
         Assertions.assertNotNull(code);
+        Assertions.assertNotNull(error);
         Assertions.assertNotNull(universityImageView);
     }
 
@@ -220,6 +226,122 @@ public class StartWindowTest extends InterfacesTest {
         Assertions.assertThrows(IllegalStateException.class, underTest);
         Mockito.verify(applicationMock).getHostServices();
         Mockito.verify(hostServicesMock).showDocument(Mockito.eq("https://sibsutis.ru"));
+    }
+
+    /**
+     * Проверяем корректность сообщения об ошибке при некорректном вводе.
+     */
+    @Test
+    void givenStartWindow_whenCodeIsIncorrect_errorMsgShowed() {
+        // arrange
+        TextField code = (TextField) windowScene.lookup("#code");
+        Label error = (Label) windowScene.lookup("#error");
+        String expectedText = "Введите целое положительное число";
+
+        // act
+        code.setText("a");
+        Platform.runLater(() -> {
+            code.fireEvent(new KeyEvent(
+                    KeyEvent.KEY_PRESSED,
+                    "",
+                    "",
+                    KeyCode.ENTER,
+                    true,
+                    true,
+                    true,
+                    true
+            ));
+            String actualText = error.getText();
+
+            // assert
+            Assertions.assertEquals(expectedText, actualText);
+        });
+    }
+
+    /**
+     * Проверяем, что приветственное окно закрывается после корректного ввода кода.
+     */
+    @Test
+    void givenStartWindow_whenCodeIsCorrect_startFormIsHidden() {
+        // arrange
+        TextField code = (TextField) windowScene.lookup("#code");
+
+        // act
+        code.setText("17");
+        Platform.runLater(() -> {
+            code.fireEvent(new KeyEvent(
+                    KeyEvent.KEY_PRESSED,
+                    "",
+                    "",
+                    KeyCode.ENTER,
+                    true,
+                    true,
+                    true,
+                    true
+            ));
+
+            // assert
+            Assertions.assertFalse(windowStage.isShowing());
+        });
+    }
+
+    /**
+     * Проверяем, что основное окно приложения открывается после корректного ввода кода.
+     */
+    @Test
+    void givenStartWindow_whenCodeIsCorrect_mainFormIsOpened() {
+        // arrange
+        TextField code = (TextField) windowScene.lookup("#code");
+
+        // act
+        code.setText("17");
+        Platform.runLater(() -> {
+            code.fireEvent(new KeyEvent(
+                    KeyEvent.KEY_PRESSED,
+                    "",
+                    "",
+                    KeyCode.ENTER,
+                    true,
+                    true,
+                    true,
+                    true
+            ));
+            Stage mainStage = ((StartForm) controller).getMainStage();
+
+            // assert
+            Assertions.assertTrue(mainStage.isShowing());
+        });
+    }
+
+    /**
+     * Проверяем корректность вычисления номера варианта по введенному коду.
+     */
+    @Test
+    void givenStartWindow_whenCodeIsCorrect_variantIsCorrect() {
+        // arrange
+        TextField code = (TextField) windowScene.lookup("#code");
+        int expectedVariant = 2;
+
+        // act
+        code.setText("17");
+        Platform.runLater(() -> {
+            code.fireEvent(new KeyEvent(
+                    KeyEvent.KEY_PRESSED,
+                    "",
+                    "",
+                    KeyCode.ENTER,
+                    true,
+                    true,
+                    true,
+                    true
+            ));
+            Stage mainStage = ((StartForm) controller).getMainStage();
+            Label variantLabel = (Label) mainStage.getScene().lookup("#variantLabel");
+            int actualVariant = Integer.parseInt(variantLabel.getText());
+
+            // assert
+            Assertions.assertEquals(expectedVariant, actualVariant);
+        });
     }
 
 }

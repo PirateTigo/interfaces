@@ -31,9 +31,10 @@ public class StartWindow {
      * @param faviconLocation URL размещения иконки приложения.
      * @param startFormLocation URL размещения fxml-файла описания стартовой формы.
      * @param application Ссылка на приложение.
+     * @return Контроллер формы.
      * @throws IOException Если fxml-файл описания формы недоступен.
      */
-    public static void prepareStage(
+    public static StartForm prepareStage(
             Stage stage,
             URL faviconLocation,
             URL startFormLocation,
@@ -45,9 +46,10 @@ public class StartWindow {
         stage.setResizable(false);
         stage.setTitle(MAIN_WINDOW_TITLE);
         stage.getIcons().add(new Image(faviconLocation.toExternalForm()));
-        controller.setMainStage(stage);
+        controller.setStartStage(stage);
         controller.setFaviconPath(faviconLocation);
         controller.setApplication(application);
+        return controller;
     }
 
 }

@@ -28,10 +28,12 @@ public class InterfacesTest {
 
     protected Scene windowScene;
 
+    protected Object controller;
+
     protected void prepareMainWindow(Stage stage) throws IOException {
         this.windowStage = stage;
         Class<?> clazz = getClass();
-        MainWindow.prepareStage(
+        controller = MainWindow.prepareStage(
             stage,
             Objects.requireNonNull(clazz.getResource(GUIStarter.FAVICON_PATH)),
             Objects.requireNonNull(clazz.getResource(MainWindow.MAIN_FORM_PATH))
@@ -47,7 +49,7 @@ public class InterfacesTest {
         hostServicesMock = Mockito.mock(HostServices.class);
         Mockito.when(applicationMock.getHostServices()).thenReturn(hostServicesMock);
 
-        StartWindow.prepareStage(
+        controller = StartWindow.prepareStage(
                 stage,
                 Objects.requireNonNull(clazz.getResource(GUIStarter.FAVICON_PATH)),
                 Objects.requireNonNull(clazz.getResource(StartWindow.START_FORM_PATH)),
