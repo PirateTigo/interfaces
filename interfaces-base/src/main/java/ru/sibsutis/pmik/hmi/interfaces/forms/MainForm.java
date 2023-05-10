@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import ru.sibsutis.pmik.hmi.interfaces.windows.QuestionDialog;
 
 import java.net.URL;
 import java.util.Objects;
@@ -34,6 +35,20 @@ public class MainForm {
     private static final String THEORY_IMAGE_PATH = "/images/theory.png";
 
     private static final String HELP_IMAGE_PATH = "/images/help.png";
+
+    private static final String VARIANT_CHOOSING_QUESTION =
+            "Данное действие приведет к закрытию анализируемой программы. \n\n" +
+            "Вы действительно желаете выбрать другой вариант?";
+
+    /**
+     * Основное окно приложения.
+     */
+    private Stage mainStage;
+
+    /**
+     * Приветственное окно.
+     */
+    private Stage startStage;
 
     /**
      * URL размещения иконки приложения.
@@ -111,6 +126,14 @@ public class MainForm {
     public void setMainStage(Stage stage) {
         // Устанавливаем обработчик закрытия окна приложения
         stage.setOnCloseRequest(windowEvent -> Platform.exit());
+        mainStage = stage;
+    }
+
+    /**
+     * Устанавливает приветственное окно.
+     */
+    public void setStartStage(Stage stage) {
+        startStage = stage;
     }
 
     /**
@@ -128,6 +151,20 @@ public class MainForm {
     public void setVariant(int variant) {
         this.variant = variant;
         variantLabel.setText(String.valueOf(variant));
+    }
+
+    /**
+     * Обработчик кнопки выбора нового варианта.
+     */
+    public void initVariantChoosing() {
+        QuestionDialog questionDialog =
+                new QuestionDialog(VARIANT_CHOOSING_QUESTION, faviconPath);
+        Boolean isNeedNewVariant = questionDialog.showAndWait().orElse(false);
+
+        if (isNeedNewVariant) {
+            mainStage.close();
+            startStage.show();
+        }
     }
 
     /**
@@ -166,6 +203,9 @@ public class MainForm {
         initButton(VARIANT_CHOICE_IMAGE_PATH, variantChoiceView, variantChoice);
         initButton(THEORY_IMAGE_PATH, theoryView, theory);
         initButton(HELP_IMAGE_PATH, helpView, help);
+
+        // Добавляем обработчик кнопки выбора варианта
+        variantChoice.setOnAction(event -> initVariantChoosing());
     }
 
     /**

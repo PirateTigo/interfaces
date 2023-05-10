@@ -204,6 +204,7 @@ public class StartForm {
             );
             mainForm.setFaviconPath(faviconPath);
             mainForm.setVariant(variant);
+            mainForm.setStartStage(startStage);
             mainStage.show();
         } catch (NumberFormatException ex) {
             setErrorMessage(NUMBER_FORMAT_ERROR);

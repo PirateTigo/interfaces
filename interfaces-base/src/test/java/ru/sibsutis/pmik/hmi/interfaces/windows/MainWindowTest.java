@@ -1,10 +1,12 @@
 package ru.sibsutis.pmik.hmi.interfaces.windows;
 
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.Start;
@@ -21,7 +23,7 @@ public class MainWindowTest extends InterfacesTest {
 
     @SuppressWarnings("unused")
     @Start
-    private void start(Stage stage) throws IOException {
+    protected void start(Stage stage) throws IOException {
         prepareMainWindow(stage);
     }
 
@@ -113,6 +115,56 @@ public class MainWindowTest extends InterfacesTest {
         Assertions.assertEquals(expectedMenuItem21Text, actualMenuItem21Text);
         Assertions.assertEquals(expectedMenuItem22Text, actualMenuItem22Text);
         Assertions.assertTrue(isMenuItem12Separator);
+    }
+
+    /**
+     * Проверяем, что при нажатии на кнопку "Вариант" отображается предупреждающее
+     * диалоговое окно.
+     */
+    @Test
+    void givenMainWindow_whenVariantChoicePressed_thenDialogShowed() {
+        // arrange
+        Button variantChoice = (Button) windowScene.lookup("#variantChoice");
+
+        Platform.runLater(() -> {
+            // act
+            variantChoice.fire();
+            Stage stage = (Stage) Stage.getWindows()
+                    .stream()
+                    .filter(Window::isShowing)
+                    .filter(window -> ((Stage)window).getTitle().equals("Запрос информации"))
+                    .findAny()
+                    .orElse(null);
+
+            // assert
+            Assertions.assertNotNull(stage);
+        });
+    }
+
+    /**
+     * Проверяем, что при нажатии на кнопку меню "Файл->Выбор варианта" отображается
+     * предупреждающее диалоговое окно.
+     */
+    @Test
+    void givenMainWindow_whenMenuVariantChoosingPressed_thenDialogShowed() {
+        // arrange
+        MenuBar menuBar = (MenuBar) windowScene.lookup("#mainMenu");
+        Menu menu1 = menuBar.getMenus().get(0);
+        MenuItem item11 = menu1.getItems().get(0);
+
+        Platform.runLater(() -> {
+            // act
+            item11.fire();
+            Stage stage = (Stage) Stage.getWindows()
+                    .stream()
+                    .filter(Window::isShowing)
+                    .filter(window -> ((Stage)window).getTitle().equals("Запрос информации"))
+                    .findAny()
+                    .orElse(null);
+
+            // assert
+            Assertions.assertNotNull(stage);
+        });
     }
 
 }
