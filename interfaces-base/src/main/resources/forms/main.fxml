@@ -17,7 +17,7 @@
         <MenuBar fx:id="mainMenu" prefWidth="${root.width}"
                  AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
             <Menu text="Файл">
-                <MenuItem text="Выбор варианта"/>
+                <MenuItem text="Выбор варианта" onAction="#initVariantChoosing"/>
                 <SeparatorMenuItem/>
                 <MenuItem text="Выход"/>
             </Menu>
