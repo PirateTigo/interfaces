@@ -31,6 +31,10 @@ dependencies {
     // Используем TestFX для модульного тестирования визуальных компонентов
     testImplementation("org.testfx:testfx-core:4.0.16-alpha")
     testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
+    // Используем Awaitility для асинхронных тестов
+    testImplementation("org.awaitility:awaitility:4.2.0")
+    // Используем Hamcrest для тестов
+    testImplementation("org.hamcrest:hamcrest-core:2.2")
 
     if (project.hasProperty("headless")) {
         // Используем Monocle для поддержки режима тестирования headless
@@ -63,7 +67,10 @@ tasks.withType<JavaCompile> {
 val testPatchArgs = mutableListOf(
         // Добавляем права доступа для TestFX
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.windows=org.testfx.junit5",
-        "--add-exports", "javafx.graphics/com.sun.javafx.application=org.testfx"
+        "--add-exports", "javafx.graphics/com.sun.javafx.application=org.testfx",
+        "--add-reads", "${rootProject.name}=org.testfx",
+        // Добавляем права доступа для Awaitility
+        "--add-reads", "${rootProject.name}=awaitility"
 )
 
 if (project.hasProperty("headless")) {

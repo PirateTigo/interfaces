@@ -13,8 +13,11 @@
         -fx-focus-color,
         -fx-control-inner-background,
         -fx-faint-focus-color,
-        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%),
-        -fx-control-inner-background);
+        linear-gradient(
+            from 0px 0px to 0px 5px,
+            derive(-fx-control-inner-background, -9%),
+            -fx-control-inner-background
+        );
     -fx-background-insets: -0.2, 1, -1.4, 3;
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
@@ -22,4 +25,30 @@
 
 .toolbar-button:hover {
     -fx-cursor: hand;
+}
+
+.button-pressed:focused {
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-faint-focus-color,
+        gray,
+        linear-gradient(
+            gray 0%,
+            lightgray 100%
+        ),
+        lightgray;
+    -fx-background-insets: -0.2, -1.4, 1, 2, 3;
+    -fx-background-radius: 3, 4, 2, 2, 2;
+}
+
+.button-pressed {
+    -fx-background-color:
+        gray,
+        linear-gradient(
+            gray 0%,
+            lightgray 100%
+        ),
+        lightgray;
+    -fx-background-insets: 1, 2, 3;
+    -fx-background-radius: 2, 2, 2;
 }
