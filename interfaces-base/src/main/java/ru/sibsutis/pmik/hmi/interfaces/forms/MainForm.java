@@ -2,10 +2,10 @@ package ru.sibsutis.pmik.hmi.interfaces.forms;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +14,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ru.sibsutis.pmik.hmi.interfaces.windows.QuestionDialog;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,9 +39,25 @@ public class MainForm {
 
     private static final String HELP_IMAGE_PATH = "/images/help.png";
 
+    private static final String THEORY_FORM_PATH = "/forms/theory.fxml";
+
     private static final String VARIANT_CHOOSING_QUESTION =
             "Данное действие приведет к закрытию анализируемой программы. \n\n" +
             "Вы действительно желаете выбрать другой вариант?";
+
+    private static final String VARIANT_CHOOSING_TIP =
+            "Выбор варианта анализируемой программы";
+
+    private static final String THEORY_BUTTON_TIP_DEFAULT =
+            "Теория по проведению анализа интерфейса";
+
+    private static final String PROGRAM_ANALYSIS_BACK_TIP =
+            "Возвращение к анализу программы";
+
+    private static final String HELP_BUTTON_TIP =
+            "Описание функциональных возможностей анализируемой программы";
+
+    private static final String BUTTON_PRESSED_CLASS = "button-pressed";
 
     /**
      * Основное окно приложения.
@@ -59,6 +78,26 @@ public class MainForm {
      * Номер варианта.
      */
     private int variant;
+
+    /**
+     * Основное содержимое рабочей области.
+     */
+    private List<Node> mainContent;
+
+    /**
+     * Содержимое справочной информации.
+     */
+    private List<Node> theoryContent;
+
+    /**
+     * Справочная информация.
+     */
+    private AnchorPane theoryPane;
+
+    /**
+     * Признак того, что кнопка теории нажата.
+     */
+    private boolean isTheoryOpened = false;
 
     /**
      * Контейнер визуальных компонентов формы.
@@ -121,6 +160,12 @@ public class MainForm {
     Label variantLabel;
 
     /**
+     * Рабочая область.
+     */
+    @FXML
+    AnchorPane content;
+
+    /**
      * Устанавливает основное окно приложения.
      */
     public void setMainStage(Stage stage) {
@@ -168,6 +213,44 @@ public class MainForm {
     }
 
     /**
+     * Выполняет выход из приложения.
+     */
+    @SuppressWarnings("unused")
+    public void exit() {
+        Platform.exit();
+    }
+
+    /**
+     * Открывает справочную информацию.
+     */
+    public void openTheory() throws IOException {
+        if (theoryPane == null) {
+            URL theoryFormLocation =
+                    Objects.requireNonNull(getClass().getResource(THEORY_FORM_PATH));
+            FXMLLoader theoryFormLoader = new FXMLLoader(theoryFormLocation);
+            /*
+               TODO: Раскомментировать данный код, когда будет добавлен контроллер формы
+                TheoryForm controller = new TheoryForm();
+                theoryFormLoader.setController(controller);
+             */
+            theoryPane = theoryFormLoader.load();
+            mainContent = new LinkedList<>(content.getChildren());
+            theoryContent = new LinkedList<>(theoryPane.getChildren());
+            content.getChildren().addAll(theoryContent);
+        }
+        mainContent.forEach(node -> node.setVisible(false));
+        theoryContent.forEach(node -> node.setVisible(true));
+    }
+
+    /**
+     * Восстанавливает состояние анализа программы.
+     */
+    public void backToProgramAnalysis() {
+        theoryContent.forEach(node -> node.setVisible(false));
+        mainContent.forEach(node -> node.setVisible(true));
+    }
+
+    /**
      * Вызывается автоматически после загрузки формы.
      */
     @FXML
@@ -199,13 +282,35 @@ public class MainForm {
         Image studentImage = new Image(studentImagePath.toString(), true);
         studentView.setImage(studentImage);
 
-        // Добавляем кнопки панели управления
+        // Добавляем кнопку "Вариант" панели управления
         initButton(VARIANT_CHOICE_IMAGE_PATH, variantChoiceView, variantChoice);
-        initButton(THEORY_IMAGE_PATH, theoryView, theory);
-        initButton(HELP_IMAGE_PATH, helpView, help);
-
-        // Добавляем обработчик кнопки выбора варианта
+        installTooltip(VARIANT_CHOOSING_TIP, variantChoice);
         variantChoice.setOnAction(event -> initVariantChoosing());
+
+        // Добавляем кнопку "Теория" панели управления
+        initButton(THEORY_IMAGE_PATH, theoryView, theory);
+        installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
+        theory.setOnAction(event -> {
+            if (isTheoryOpened) {
+                theory.getStyleClass().remove(BUTTON_PRESSED_CLASS);
+                backToProgramAnalysis();
+                installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
+            } else {
+                theory.getStyleClass().add(BUTTON_PRESSED_CLASS);
+                try {
+                    openTheory();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                installTooltip(PROGRAM_ANALYSIS_BACK_TIP, theory);
+            }
+            isTheoryOpened = !isTheoryOpened;
+            theory.requestFocus();
+        });
+
+        // Добавляем кнопку "Помощь" панели управления
+        initButton(HELP_IMAGE_PATH, helpView, help);
+        installTooltip(HELP_BUTTON_TIP, help);
     }
 
     /**
@@ -239,6 +344,17 @@ public class MainForm {
         Font font = Font.loadFont(fontPath.toExternalForm(), size);
         button.setFont(font);
         button.setContentDisplay(ContentDisplay.TOP);
+    }
+
+    /**
+     * Устанавливает подсказку для элемента формы.
+     *
+     * @param text Текст подсказки.
+     * @param node Элемент формы.
+     */
+    private void installTooltip(String text, Control node) {
+        Tooltip tooltip = new Tooltip(text);
+        node.setTooltip(tooltip);
     }
 
 }

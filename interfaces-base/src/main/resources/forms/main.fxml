@@ -19,14 +19,14 @@
             <Menu text="Файл">
                 <MenuItem text="Выбор варианта" onAction="#initVariantChoosing"/>
                 <SeparatorMenuItem/>
-                <MenuItem text="Выход"/>
+                <MenuItem text="Выход" onAction="#exit"/>
             </Menu>
             <Menu text="Справка">
                 <MenuItem text="Теория"/>
                 <MenuItem text="Об авторе"/>
             </Menu>
         </MenuBar>
-        <ToolBar prefHeight="${root.height * 0.3}">
+        <ToolBar fx:id="buttons" prefHeight="${root.height * 0.13}">
             <HBox fx:id="studentBox" prefWidth="${root.width * 0.25}"
                   alignment="BOTTOM_RIGHT">
                 <ImageView fx:id="studentView"
@@ -71,10 +71,15 @@
                 </Button>
             </HBox>
         </ToolBar>
-        <VBox alignment="CENTER">
-            <HBox alignment="CENTER" prefHeight="${root.height}">
-                <Label fx:id="variantLabel"/>
-            </HBox>
-        </VBox>
+        <AnchorPane fx:id="content"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+            <VBox alignment="CENTER">
+                <HBox fx:id="programContent" alignment="CENTER" prefWidth="${root.width}"
+                      prefHeight="${root.height - mainMenu.height - buttons.height}">
+                    <Label fx:id="variantLabel"/>
+                </HBox>
+            </VBox>
+        </AnchorPane>
     </VBox>
 </AnchorPane>

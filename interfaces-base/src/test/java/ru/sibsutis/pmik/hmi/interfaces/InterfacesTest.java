@@ -39,7 +39,6 @@ public class InterfacesTest {
             Objects.requireNonNull(clazz.getResource(MainWindow.MAIN_FORM_PATH))
         );
         windowScene = stage.getScene();
-        stage.show();
     }
 
     protected void prepareStartWindow(Stage stage) throws IOException {
@@ -56,7 +55,6 @@ public class InterfacesTest {
                 applicationMock
         );
         windowScene = stage.getScene();
-        stage.show();
     }
 
 }
