@@ -95,6 +95,11 @@ public class MainForm {
     private AnchorPane theoryPane;
 
     /**
+     * Форма справочной информации.
+     */
+    private TheoryForm theoryForm;
+
+    /**
      * Признак того, что кнопка теории нажата.
      */
     private boolean isTheoryOpened = false;
@@ -104,6 +109,18 @@ public class MainForm {
      */
     @FXML
     AnchorPane root;
+
+    /**
+     * Главное меню.
+     */
+    @FXML
+    MenuBar mainMenu;
+
+    /**
+     * Панель управления.
+     */
+    @FXML
+    ToolBar buttons;
 
     /**
      * Контейнер для изображения студента.
@@ -241,11 +258,10 @@ public class MainForm {
                     URL theoryFormLocation =
                             Objects.requireNonNull(getClass().getResource(THEORY_FORM_PATH));
                     FXMLLoader theoryFormLoader = new FXMLLoader(theoryFormLocation);
-                /*
-                   TODO: Раскомментировать данный код, когда будет добавлен контроллер формы
-                    TheoryForm controller = new TheoryForm();
-                    theoryFormLoader.setController(controller);
-                 */
+
+                    theoryForm = new TheoryForm();
+                    theoryForm.setParentForm(this);
+                    theoryFormLoader.setController(theoryForm);
                     theoryPane = theoryFormLoader.load();
                     mainContent = new LinkedList<>(content.getChildren());
                     theoryContent = new LinkedList<>(theoryPane.getChildren());
@@ -258,6 +274,8 @@ public class MainForm {
             }
             installTooltip(PROGRAM_ANALYSIS_BACK_TIP, theory);
             isTheoryOpened = !isTheoryOpened;
+            theoryForm.setParentRootWidth(root.getWidth());
+            theoryForm.setParentRootHeight(root.getHeight());
             return true;
         }
         return false;
@@ -301,6 +319,17 @@ public class MainForm {
             setButtonFont(variantChoice, fontSize);
             setButtonFont(theory, fontSize);
             setButtonFont(help, fontSize);
+
+            // Обеспечиваем адаптивную высоту формы справочной информации
+            if (theoryForm != null) {
+                theoryForm.setParentRootHeight(newValue.doubleValue());
+            }
+        });
+        root.widthProperty().addListener((observable, oldValue, newValue) -> {
+            // Обеспечиваем адаптивную ширину формы справочной информации
+            if (theoryForm != null) {
+                theoryForm.setParentRootWidth(newValue.doubleValue());
+            }
         });
 
         // Добавляем изображение студента
