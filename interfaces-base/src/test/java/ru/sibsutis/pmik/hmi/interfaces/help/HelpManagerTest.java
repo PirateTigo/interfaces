@@ -2,19 +2,23 @@ package ru.sibsutis.pmik.hmi.interfaces.help;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Isolated;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 /**
  * Модульные тесты класса управления справочной информацией.
  */
+@Isolated
 public class HelpManagerTest {
 
     /**
      * Проверяем, что структура справочной информации может быть получена.
      */
     @Test
-    void givenHelpManager_whenGetMenuStructure_thenStructureIsGot() {
+    void givenHelpManager_whenGetMenuStructure_thenStructureIsGot() throws URISyntaxException, IOException {
         // arrange
         HelpManager helpManager = new HelpManager();
         String expectedTheme1 = "Тема1";
