@@ -1,6 +1,7 @@
 package ru.sibsutis.pmik.hmi.interfaces.windows;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,14 +30,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class MainWindowTest extends InterfacesTest {
 
+    public static final int WAITING_TIMEOUT = 5;
+
     private static final String MAIN_MENU_SELECTOR = "#mainMenu";
     private static final String VARIANT_CHOICE_SELECTOR = "#variantChoice";
     private static final String THEORY_SELECTOR = "#theory";
     private static final String HELP_SELECTOR = "#help";
     public static final String HELP_CONTENT_SELECTOR = "#helpContent";
     private static final String PROGRAM_CONTENT_SELECTOR = "#programContent";
-
-    private static final int WAITING_TIMEOUT = 5;
 
     private static FxRobot robot;
 
@@ -45,15 +46,10 @@ public class MainWindowTest extends InterfacesTest {
         robot = new FxRobot();
     }
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @SuppressWarnings("unused")
     @Start
     protected void start(Stage stage) throws IOException {
         prepareMainWindow(stage);
-        stage.show();
     }
 
     /**
@@ -121,35 +117,44 @@ public class MainWindowTest extends InterfacesTest {
         String expectedMenu1Text = "Файл";
         String expectedMenu2Text = "Справка";
         String expectedMenuItem11Text = "Выбор варианта";
-        String expectedMenuItem13Text = "Выход";
+        String expectedMenuItem12Text = "Анализ программы";
+        String expectedMenuItem14Text = "Выход";
         String expectedMenuItem21Text = "Теория";
         String expectedMenuItem22Text = "Об авторе";
 
         // act
-        Menu menu1 = menuBar.getMenus().get(0);
+        ObservableList<Menu> menus = menuBar.getMenus();
+        Menu menu1 = menus.get(0);
+        Menu menu2 = menus.get(1);
         String actualMenu1Text = menu1.getText();
-        Menu menu2 = menuBar.getMenus().get(1);
         String actualMenu2Text = menu2.getText();
-        MenuItem item11 = menu1.getItems().get(0);
+
+        ObservableList<MenuItem> menu1Items = menu1.getItems();
+        MenuItem item11 = menu1Items.get(0);
+        MenuItem item12 = menu1Items.get(1);
+        MenuItem item13 = menu1Items.get(2);
+        MenuItem item14 = menu1Items.get(3);
         String actualMenuItem11Text = item11.getText();
-        MenuItem item12 = menu1.getItems().get(1);
-        boolean isMenuItem12Separator =
-                item12.getClass().isAssignableFrom(SeparatorMenuItem.class);
-        MenuItem item13 = menu1.getItems().get(2);
-        String actualMenuItem13Text = item13.getText();
-        MenuItem item21 = menu2.getItems().get(0);
+        String actualMenuItem12Text = item12.getText();
+        boolean isMenuItem13Separator =
+                item13.getClass().isAssignableFrom(SeparatorMenuItem.class);
+        String actualMenuItem14Text = item14.getText();
+
+        ObservableList<MenuItem> menu2Items = menu2.getItems();
+        MenuItem item21 = menu2Items.get(0);
+        MenuItem item22 = menu2Items.get(1);
         String actualMenuItem21Text = item21.getText();
-        MenuItem item22 = menu2.getItems().get(1);
         String actualMenuItem22Text = item22.getText();
 
         // assert
         Assertions.assertEquals(expectedMenu1Text, actualMenu1Text);
         Assertions.assertEquals(expectedMenu2Text, actualMenu2Text);
         Assertions.assertEquals(expectedMenuItem11Text, actualMenuItem11Text);
-        Assertions.assertEquals(expectedMenuItem13Text, actualMenuItem13Text);
+        Assertions.assertEquals(expectedMenuItem12Text, actualMenuItem12Text);
+        Assertions.assertEquals(expectedMenuItem14Text, actualMenuItem14Text);
         Assertions.assertEquals(expectedMenuItem21Text, actualMenuItem21Text);
         Assertions.assertEquals(expectedMenuItem22Text, actualMenuItem22Text);
-        Assertions.assertTrue(isMenuItem12Separator);
+        Assertions.assertTrue(isMenuItem13Separator);
     }
 
     /**
@@ -230,6 +235,35 @@ public class MainWindowTest extends InterfacesTest {
         // assert
         Assertions.assertFalse(programContent.getParent().isVisible());
         Assertions.assertNotNull(helpContent);
+        Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
+    }
+
+    /**
+     * Проверяем, что после нажатия кнопки "Справка->Теория" отображается справочная
+     * информация.
+     */
+    @Test
+    void givenMainWindow_whenMenuTheoryButtonPressed_thenHelpShowed() throws ExecutionException, InterruptedException {
+        // arrange
+        MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
+        Menu menu2 = menuBar.getMenus().get(1);
+        MenuItem item21 = menu2.getItems().get(0);
+        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+
+        CompletableFuture<String> completableFuture = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            // act
+            item21.fire();
+            completableFuture.complete("completed");
+        });
+        completableFuture.get();
+        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+
+        // assert
+        Assertions.assertFalse(programContent.getParent().isVisible());
+        Assertions.assertNotNull(helpContent);
+        Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
     }
 
     /**
@@ -259,6 +293,42 @@ public class MainWindowTest extends InterfacesTest {
         Assertions.assertTrue(programContent.getParent().isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertFalse(helpContent.getParent().isVisible());
+        Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+    }
+
+    /**
+     * Проверяем, что после нажатия кнопки "Файл->Анализ программы" отображается
+     * анализируемая программа.
+     */
+    @Test
+    void givenMainWindow_whenMenuBackToProgramAnalysisButtonPressed_thenProgramContentShowed() throws ExecutionException, InterruptedException {
+        // arrange
+        MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
+        Menu menu1 = menuBar.getMenus().get(0);
+        MenuItem item12 = menu1.getItems().get(1);
+        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+
+        // act
+        CompletableFuture<String> completableFuture1 = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            theory.fire();
+            completableFuture1.complete("completed");
+        });
+        completableFuture1.get();
+        CompletableFuture<String> completableFuture2 = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            item12.fire();
+            completableFuture2.complete("completed");
+        });
+        completableFuture2.get();
+        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+
+        // assert
+        Assertions.assertTrue(programContent.getParent().isVisible());
+        Assertions.assertNotNull(helpContent);
+        Assertions.assertFalse(helpContent.getParent().isVisible());
+        Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
     }
 
     /**
