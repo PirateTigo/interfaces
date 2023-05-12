@@ -7,6 +7,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import ru.sibsutis.pmik.hmi.interfaces.help.HelpManager;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +72,7 @@ public class TheoryForm {
      */
     @FXML
     @SuppressWarnings("unused")
-    private void initialize() {
+    private void initialize() throws URISyntaxException, IOException {
         HelpManager helpManager = new HelpManager();
         Map<String, Map<String, String>> menuStructure = helpManager.getMenuStructure();
         List<TitledPane> panes = new LinkedList<>();

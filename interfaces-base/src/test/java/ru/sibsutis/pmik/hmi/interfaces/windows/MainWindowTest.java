@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.parallel.Isolated;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Модульные тесты визуальных компонентов основного окна приложения.
  */
+@Isolated
 public class MainWindowTest extends InterfacesTest {
 
     public static final int WAITING_TIMEOUT = 5;

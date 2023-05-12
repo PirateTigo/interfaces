@@ -53,6 +53,8 @@
     -fx-background-radius: 2, 2, 2;
 }
 
-#helpMenuBox {
-    -fx-background-color: lightgray;
+#helpMenu {
+    -fx-background-color: -fx-base;
+    -fx-border-color: lightgray;
+    -fx-border-insets: -1 0 0 0;
 }

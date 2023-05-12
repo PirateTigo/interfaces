@@ -12,6 +12,7 @@ import javafx.stage.Window;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Isolated;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
 
@@ -27,6 +28,7 @@ import static ru.sibsutis.pmik.hmi.interfaces.windows.MainWindowTest.WAITING_TIM
 /**
  * Модульные тесты диалогового окна подтверждения выбора нового варианта.
  */
+@Isolated
 public class VariantChoosingQuestionDialogTest extends InterfacesTest {
 
     private static final String LABEL_SELECTOR = ".label";
