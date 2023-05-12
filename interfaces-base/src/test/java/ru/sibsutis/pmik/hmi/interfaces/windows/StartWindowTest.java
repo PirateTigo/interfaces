@@ -12,13 +12,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
 import ru.sibsutis.pmik.hmi.interfaces.forms.StartForm;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Модульные тесты визуальных компонентов приветственного окна приложения.
@@ -189,15 +190,16 @@ public class StartWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем корректность размеров иконки университета.
+     * Проверяем, что браузер открывается при нажатии на кнопку университета.
      */
     @Test
-    void givenStartWindow_whenUniversityImageViewClicked_thenBrowserOpened() {
+    void givenStartWindow_whenUniversityImageViewClicked_thenBrowserOpened() throws ExecutionException, InterruptedException {
         // arrange
         ImageView universityImageView = (ImageView) windowScene.lookup("#universityImageView");
 
         // act
-        Executable underTest = () ->
+        CompletableFuture<String> completableFuture = new CompletableFuture<>();
+        Platform.runLater(() -> {
             Event.fireEvent(
                     universityImageView,
                     new MouseEvent(
@@ -221,9 +223,11 @@ public class StartWindowTest extends InterfacesTest {
                             null
                     )
             );
+            completableFuture.complete("completed");
+        });
+        completableFuture.get();
 
         // assert
-        Assertions.assertThrows(IllegalStateException.class, underTest);
         Mockito.verify(applicationMock).getHostServices();
         Mockito.verify(hostServicesMock).showDocument(Mockito.eq("https://sibsutis.ru"));
     }

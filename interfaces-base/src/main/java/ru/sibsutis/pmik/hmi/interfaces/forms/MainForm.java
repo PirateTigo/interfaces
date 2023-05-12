@@ -221,33 +221,59 @@ public class MainForm {
     }
 
     /**
+     * Либо открывает справочную информацию, либо анализируемую программу,
+     * в зависимости от текущего состояния программы.
+     */
+    public void theoryButtonHandler() {
+        if (!openTheory()) {
+            backToProgramAnalysis();
+        }
+    }
+
+    /**
      * Открывает справочную информацию.
      */
-    public void openTheory() throws IOException {
-        if (theoryPane == null) {
-            URL theoryFormLocation =
-                    Objects.requireNonNull(getClass().getResource(THEORY_FORM_PATH));
-            FXMLLoader theoryFormLoader = new FXMLLoader(theoryFormLocation);
-            /*
-               TODO: Раскомментировать данный код, когда будет добавлен контроллер формы
-                TheoryForm controller = new TheoryForm();
-                theoryFormLoader.setController(controller);
-             */
-            theoryPane = theoryFormLoader.load();
-            mainContent = new LinkedList<>(content.getChildren());
-            theoryContent = new LinkedList<>(theoryPane.getChildren());
-            content.getChildren().addAll(theoryContent);
+    public boolean openTheory() {
+        if (!isTheoryOpened) {
+            theory.getStyleClass().add(BUTTON_PRESSED_CLASS);
+            try {
+                if (theoryPane == null) {
+                    URL theoryFormLocation =
+                            Objects.requireNonNull(getClass().getResource(THEORY_FORM_PATH));
+                    FXMLLoader theoryFormLoader = new FXMLLoader(theoryFormLocation);
+                /*
+                   TODO: Раскомментировать данный код, когда будет добавлен контроллер формы
+                    TheoryForm controller = new TheoryForm();
+                    theoryFormLoader.setController(controller);
+                 */
+                    theoryPane = theoryFormLoader.load();
+                    mainContent = new LinkedList<>(content.getChildren());
+                    theoryContent = new LinkedList<>(theoryPane.getChildren());
+                    content.getChildren().addAll(theoryContent);
+                }
+                mainContent.forEach(node -> node.setVisible(false));
+                theoryContent.forEach(node -> node.setVisible(true));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            installTooltip(PROGRAM_ANALYSIS_BACK_TIP, theory);
+            isTheoryOpened = !isTheoryOpened;
+            return true;
         }
-        mainContent.forEach(node -> node.setVisible(false));
-        theoryContent.forEach(node -> node.setVisible(true));
+        return false;
     }
 
     /**
      * Восстанавливает состояние анализа программы.
      */
     public void backToProgramAnalysis() {
-        theoryContent.forEach(node -> node.setVisible(false));
-        mainContent.forEach(node -> node.setVisible(true));
+        if (isTheoryOpened) {
+            theory.getStyleClass().remove(BUTTON_PRESSED_CLASS);
+            theoryContent.forEach(node -> node.setVisible(false));
+            mainContent.forEach(node -> node.setVisible(true));
+            installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
+            isTheoryOpened = !isTheoryOpened;
+        }
     }
 
     /**
@@ -290,23 +316,7 @@ public class MainForm {
         // Добавляем кнопку "Теория" панели управления
         initButton(THEORY_IMAGE_PATH, theoryView, theory);
         installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
-        theory.setOnAction(event -> {
-            if (isTheoryOpened) {
-                theory.getStyleClass().remove(BUTTON_PRESSED_CLASS);
-                backToProgramAnalysis();
-                installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
-            } else {
-                theory.getStyleClass().add(BUTTON_PRESSED_CLASS);
-                try {
-                    openTheory();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                installTooltip(PROGRAM_ANALYSIS_BACK_TIP, theory);
-            }
-            isTheoryOpened = !isTheoryOpened;
-            theory.requestFocus();
-        });
+        theory.setOnAction(event -> theoryButtonHandler());
 
         // Добавляем кнопку "Помощь" панели управления
         initButton(HELP_IMAGE_PATH, helpView, help);

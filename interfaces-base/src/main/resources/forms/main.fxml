@@ -18,11 +18,12 @@
                  AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
             <Menu text="Файл">
                 <MenuItem text="Выбор варианта" onAction="#initVariantChoosing"/>
+                <MenuItem text="Анализ программы" onAction="#backToProgramAnalysis"/>
                 <SeparatorMenuItem/>
                 <MenuItem text="Выход" onAction="#exit"/>
             </Menu>
             <Menu text="Справка">
-                <MenuItem text="Теория"/>
+                <MenuItem text="Теория" onAction="#openTheory"/>
                 <MenuItem text="Об авторе"/>
             </Menu>
         </MenuBar>
