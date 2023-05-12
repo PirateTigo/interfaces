@@ -32,7 +32,7 @@ public class MainWindowTest extends InterfacesTest {
 
     public static final int WAITING_TIMEOUT = 5;
 
-    private static final String MAIN_MENU_SELECTOR = "#mainMenu";
+    public static final String MAIN_MENU_SELECTOR = "#mainMenu";
     private static final String VARIANT_CHOICE_SELECTOR = "#variantChoice";
     private static final String THEORY_SELECTOR = "#theory";
     private static final String HELP_SELECTOR = "#help";
