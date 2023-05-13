@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Isolated;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
 
@@ -20,6 +21,7 @@ import static ru.sibsutis.pmik.hmi.interfaces.windows.MainWindowTest.*;
 /**
  * Модульные тесты визуальных компонентов формы справочной информации.
  */
+@Isolated
 public class TheoryFormTest extends InterfacesTest {
 
     private HBox helpContent;
