@@ -17,9 +17,11 @@ import org.mockito.stubbing.Answer;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
+import ru.sibsutis.pmik.hmi.interfaces.forms.MainForm;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -331,6 +333,37 @@ public class MainWindowTest extends InterfacesTest {
         Assertions.assertNotNull(helpContent);
         Assertions.assertFalse(helpContent.getParent().isVisible());
         Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+    }
+
+    /**
+     * Проверяем, что после нажатия кнопки "Помощь" отображается справочная
+     * информация по описанию текущего варианта программы.
+     */
+    @Test
+    void givenMainWindow_whenHelpButtonPressed_thenHelpShowed() {
+        // arrange
+        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        Button help = (Button) windowScene.lookup(HELP_SELECTOR);
+        MainForm mainForm = (MainForm) controller;
+        int expectedVariant = 5;
+        String expectedVariantName = "Вариант 6";
+
+        Platform.runLater(() -> {
+            // act
+            mainForm.setVariant(expectedVariant);
+            help.fire();
+            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+            Accordion helpMenu = (Accordion) windowScene.lookup("#helpMenu");
+            LinkedList<TitledPane> panes = new LinkedList<>(helpMenu.getPanes());
+            String actualVariantName = panes.getLast().getText();
+
+            // assert
+            Assertions.assertFalse(programContent.getParent().isVisible());
+            Assertions.assertNotNull(helpContent);
+            Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
+            Assertions.assertEquals(expectedVariantName, actualVariantName);
+        });
     }
 
     /**

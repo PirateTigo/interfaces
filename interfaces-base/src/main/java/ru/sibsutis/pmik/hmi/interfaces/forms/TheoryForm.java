@@ -104,16 +104,39 @@ public class TheoryForm {
     }
 
     /**
+     * Открывает справочную информацию по последней теме
+     * с 0-м номером главы.
+     */
+    public void openLastTheme() {
+        openChapter(helpMenu.getPanes().size() - 1, 0);
+    }
+
+    /**
      * Вызывается автоматически после загрузки формы.
      */
     @FXML
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "unchecked"})
     private void initialize() throws URISyntaxException, IOException {
         // Загружаем структуру меню
         HelpManager helpManager = new HelpManager();
         menuStructure = helpManager.getMenuStructure();
         List<TitledPane> panes = new LinkedList<>();
         menuStructure.keySet().forEach(theme -> {
+            String[] themeParts = theme.split(" ");
+            if (themeParts.length == 2) {
+                if ("Вариант".equals(themeParts[0])) {
+                    int variant;
+                    try {
+                        variant = Integer.parseInt(themeParts[1]);
+                        if (variant != (parentForm.getVariant() + 1)) {
+                            // Пропускаем
+                            return;
+                        }
+                    } catch (NumberFormatException ex) {
+                        // Игнорируем
+                    }
+                }
+            }
             ListView<String> subMenu = new ListView<>();
             subMenu.getItems().addAll(menuStructure.get(theme).keySet());
             TitledPane titledPane = new TitledPane(theme, subMenu);
@@ -123,7 +146,15 @@ public class TheoryForm {
             subMenu.getSelectionModel().selectedItemProperty().addListener(
                     (observable, oldValue, newValue) -> {
                         String chapter = subMenu.getSelectionModel().getSelectedItem();
-                        loadChapter(theme, chapter);
+                        if (chapter != null) {
+                            loadChapter(theme, chapter);
+                            helpMenu.getPanes().forEach(pane -> {
+                                ListView<String> currentSubMenu = (ListView<String>) pane.getContent();
+                                if (subMenu != currentSubMenu) {
+                                    currentSubMenu.getSelectionModel().clearSelection();
+                                }
+                            });
+                        }
                     });
         });
         helpMenu.getPanes().addAll(panes);

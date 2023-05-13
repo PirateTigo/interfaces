@@ -13,6 +13,7 @@ import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -86,6 +87,9 @@ public class TheoryFormTest extends InterfacesTest {
         Assertions.assertFalse(webViewArea.getChildren().isEmpty());
     }
 
+    /**
+     * Проверяем, что глава отображается, если она выбрана.
+     */
     @Test
     @SuppressWarnings("unchecked")
     void givenTheoryForm_whenChapterIsSelected_thenOneShowed() {
@@ -108,6 +112,37 @@ public class TheoryFormTest extends InterfacesTest {
             Assertions.assertTrue(testedPane.isExpanded());
             Assertions.assertEquals(expectedChapter, actualChapter);
             Assertions.assertFalse(webViewArea.getChildren().isEmpty());
+        });
+    }
+
+    /**
+     * Проверяем, что последняя глава открывается.
+     */
+    @Test
+    @SuppressWarnings("unchecked")
+    void givenTheoryForm_whenLastChapterIsSelected_thenOneShowed() {
+        // arrange
+        Accordion helpMenu = (Accordion) helpContent.lookup("#helpMenu");
+        VBox webViewArea = (VBox) helpContent.lookup("#webViewArea");
+        MainForm mainForm = (MainForm) controller;
+        TheoryForm theoryForm = mainForm.getTheoryForm();
+        int expectedChapter = 0;
+        String expectedVariantName = "Вариант 1";
+
+        Platform.runLater(() -> {
+            // act
+            theoryForm.openLastTheme();
+            LinkedList<TitledPane> panes = new LinkedList<>(helpMenu.getPanes());
+            TitledPane testedPane = panes.getLast();
+            ListView<String> chapters = (ListView<String>) testedPane.getContent();
+            int actualChapter = chapters.getSelectionModel().getSelectedIndex();
+            String actualVariantName = testedPane.getText();
+
+            // assert
+            Assertions.assertTrue(testedPane.isExpanded());
+            Assertions.assertEquals(expectedChapter, actualChapter);
+            Assertions.assertFalse(webViewArea.getChildren().isEmpty());
+            Assertions.assertEquals(expectedVariantName, actualVariantName);
         });
     }
 

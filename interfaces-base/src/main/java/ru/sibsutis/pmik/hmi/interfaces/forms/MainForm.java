@@ -206,6 +206,13 @@ public class MainForm {
     }
 
     /**
+     * Возвращает номер варианта.
+     */
+    public int getVariant() {
+        return variant;
+    }
+
+    /**
      * Устанавливает номер варианта.
      *
      * @param variant Номер варианта.
@@ -358,6 +365,10 @@ public class MainForm {
         // Добавляем кнопку "Помощь" панели управления
         initButton(HELP_IMAGE_PATH, helpView, help);
         installTooltip(HELP_BUTTON_TIP, help);
+        help.setOnAction(event -> {
+            openTheory();
+            theoryForm.openLastTheme();
+        });
     }
 
     /**
