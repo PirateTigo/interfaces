@@ -276,6 +276,7 @@ public class MainForm {
             isTheoryOpened = !isTheoryOpened;
             theoryForm.setParentRootWidth(root.getWidth());
             theoryForm.setParentRootHeight(root.getHeight());
+            theoryForm.openChapter(0, 0);
             return true;
         }
         return false;
@@ -295,6 +296,13 @@ public class MainForm {
     }
 
     /**
+     * Возвращает форму справочной информации.
+     */
+    public TheoryForm getTheoryForm() {
+        return theoryForm;
+    }
+
+    /**
      * Вызывается автоматически после загрузки формы.
      */
     @FXML
@@ -310,7 +318,7 @@ public class MainForm {
             studentBox.setPadding(new Insets(
                     0.0,
                     0.0,
-                    -newValue.doubleValue() * 0.02,
+                    -newValue.doubleValue() * 0.0075,
                     0.0
             ));
 

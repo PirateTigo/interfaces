@@ -28,7 +28,7 @@
             </Menu>
         </MenuBar>
         <ToolBar fx:id="buttons" prefHeight="${root.height * 0.13}">
-            <HBox fx:id="studentBox" prefWidth="${root.width * 0.3}"
+            <HBox fx:id="studentBox" prefWidth="${root.width * 0.12}"
                   alignment="BOTTOM_RIGHT">
                 <ImageView fx:id="studentView"
                            fitWidth="${root.height * 0.1}"

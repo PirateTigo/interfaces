@@ -10,6 +10,7 @@
             <VBox>
                 <Accordion fx:id="helpMenu"/>
             </VBox>
+            <VBox fx:id="webViewArea"/>
         </HBox>
     </VBox>
 </AnchorPane>

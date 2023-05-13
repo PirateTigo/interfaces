@@ -49,7 +49,11 @@ java {
 
 javafx {
     version = "17"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules = listOf(
+            "javafx.controls",
+            "javafx.fxml",
+            "javafx.web"
+    )
 }
 
 application {
