@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Isolated;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.Start;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
@@ -24,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Модульные тесты визуальных компонентов приветственного окна приложения.
  */
+@Isolated
 public class StartWindowTest extends InterfacesTest {
 
     @SuppressWarnings("unused")

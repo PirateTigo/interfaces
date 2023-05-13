@@ -58,3 +58,11 @@
     -fx-border-color: lightgray;
     -fx-border-insets: -1 0 0 0;
 }
+
+#helpMenu:hover {
+    -fx-cursor: hand;
+}
+
+#content {
+    -fx-background-color: -fx-control-inner-background;
+}
