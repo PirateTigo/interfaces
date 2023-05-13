@@ -24,7 +24,7 @@
             </Menu>
             <Menu text="Справка">
                 <MenuItem text="Теория" onAction="#openTheory"/>
-                <MenuItem text="Об авторе"/>
+                <MenuItem text="Об авторе" onAction="#authorHandler"/>
             </Menu>
         </MenuBar>
         <ToolBar fx:id="buttons" prefHeight="${root.height * 0.13}">

@@ -11,14 +11,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.sibsutis.pmik.hmi.interfaces.windows.QuestionDialog;
+import ru.sibsutis.pmik.hmi.interfaces.windows.AuthorWindow;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+
+import static ru.sibsutis.pmik.hmi.interfaces.windows.AuthorWindow.AUTHOR_FORM_PATH;
 
 /**
  * Контроллер формы основного окна приложения.
@@ -307,6 +311,21 @@ public class MainForm {
      */
     public TheoryForm getTheoryForm() {
         return theoryForm;
+    }
+
+    /**
+     * Обрабатывает кнопку меню "Об авторе".
+     */
+    @SuppressWarnings("unused")
+    public void authorHandler() throws IOException {
+        Stage stage = new Stage();
+        AuthorWindow.prepareStage(
+                stage,
+                faviconPath,
+                Objects.requireNonNull(getClass().getResource(AUTHOR_FORM_PATH))
+        );
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     /**

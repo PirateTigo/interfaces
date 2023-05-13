@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationExtension;
+import ru.sibsutis.pmik.hmi.interfaces.windows.AuthorWindow;
 import ru.sibsutis.pmik.hmi.interfaces.windows.MainWindow;
 import ru.sibsutis.pmik.hmi.interfaces.windows.StartWindow;
 
@@ -54,6 +55,19 @@ public class InterfacesTest {
                 Objects.requireNonNull(clazz.getResource(GUIStarter.FAVICON_PATH)),
                 Objects.requireNonNull(clazz.getResource(StartWindow.START_FORM_PATH)),
                 applicationMock
+        );
+        windowScene = stage.getScene();
+        stage.show();
+    }
+
+    protected void prepareAuthorWindow(Stage stage) throws IOException {
+        this.windowStage = stage;
+        Class<?> clazz = getClass();
+
+        controller = AuthorWindow.prepareStage(
+                stage,
+                Objects.requireNonNull(clazz.getResource(GUIStarter.FAVICON_PATH)),
+                Objects.requireNonNull(clazz.getResource(AuthorWindow.AUTHOR_FORM_PATH))
         );
         windowScene = stage.getScene();
         stage.show();
