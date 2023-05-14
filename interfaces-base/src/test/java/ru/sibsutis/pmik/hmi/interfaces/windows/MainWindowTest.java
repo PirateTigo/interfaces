@@ -78,37 +78,41 @@ public class MainWindowTest extends InterfacesTest {
     void givenMainWindow_whenShowed_thenHasItems() {
         // arrange
 
-        // act
-        AnchorPane root = (AnchorPane) windowScene.lookup("#root");
-        MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
-        ToolBar buttons = (ToolBar) windowScene.lookup("#buttons");
-        HBox studentBox = (HBox) windowScene.lookup("#studentBox");
-        ImageView studentView = (ImageView) windowScene.lookup("#studentView");
-        Button variantChoice = (Button) windowScene.lookup(VARIANT_CHOICE_SELECTOR);
-        ImageView variantChoiceView = (ImageView) windowScene.lookup("#variantChoiceView");
-        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
-        ImageView theoryView = (ImageView) windowScene.lookup("#theoryView");
-        Button help = (Button) windowScene.lookup(HELP_SELECTOR);
-        ImageView helpView = (ImageView) windowScene.lookup("#helpView");
-        AnchorPane content = (AnchorPane) windowScene.lookup("#content");
-        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
-        Label variantLabel = (Label) windowScene.lookup("#variantLabel");
+        Platform.runLater(() -> {
+            // act
+            ((MainForm) controller).setVariant(5);
 
-        // assert
-        Assertions.assertNotNull(root);
-        Assertions.assertNotNull(menuBar);
-        Assertions.assertNotNull(buttons);
-        Assertions.assertNotNull(studentBox);
-        Assertions.assertNotNull(studentView);
-        Assertions.assertNotNull(variantChoice);
-        Assertions.assertNotNull(variantChoiceView);
-        Assertions.assertNotNull(theory);
-        Assertions.assertNotNull(theoryView);
-        Assertions.assertNotNull(help);
-        Assertions.assertNotNull(helpView);
-        Assertions.assertNotNull(content);
-        Assertions.assertNotNull(programContent);
-        Assertions.assertNotNull(variantLabel);
+            AnchorPane root = (AnchorPane) windowScene.lookup("#root");
+            MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
+            ToolBar buttons = (ToolBar) windowScene.lookup("#buttons");
+            HBox studentBox = (HBox) windowScene.lookup("#studentBox");
+            ImageView studentView = (ImageView) windowScene.lookup("#studentView");
+            Button variantChoice = (Button) windowScene.lookup(VARIANT_CHOICE_SELECTOR);
+            ImageView variantChoiceView = (ImageView) windowScene.lookup("#variantChoiceView");
+            Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+            ImageView theoryView = (ImageView) windowScene.lookup("#theoryView");
+            Button help = (Button) windowScene.lookup(HELP_SELECTOR);
+            ImageView helpView = (ImageView) windowScene.lookup("#helpView");
+            AnchorPane content = (AnchorPane) windowScene.lookup("#content");
+            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            Label variantLabel = (Label) windowScene.lookup("#variantLabel");
+
+            // assert
+            Assertions.assertNotNull(root);
+            Assertions.assertNotNull(menuBar);
+            Assertions.assertNotNull(buttons);
+            Assertions.assertNotNull(studentBox);
+            Assertions.assertNotNull(studentView);
+            Assertions.assertNotNull(variantChoice);
+            Assertions.assertNotNull(variantChoiceView);
+            Assertions.assertNotNull(theory);
+            Assertions.assertNotNull(theoryView);
+            Assertions.assertNotNull(help);
+            Assertions.assertNotNull(helpView);
+            Assertions.assertNotNull(content);
+            Assertions.assertNotNull(programContent);
+            Assertions.assertNotNull(variantLabel);
+        });
     }
 
     /**
@@ -229,6 +233,7 @@ public class MainWindowTest extends InterfacesTest {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
             // act
+            ((MainForm) controller).setVariant(5);
             theory.fire();
             completableFuture.complete("completed");
         });
@@ -257,6 +262,7 @@ public class MainWindowTest extends InterfacesTest {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
             // act
+            ((MainForm) controller).setVariant(5);
             item21.fire();
             completableFuture.complete("completed");
         });
@@ -280,6 +286,7 @@ public class MainWindowTest extends InterfacesTest {
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
         CompletableFuture<String> completableFuture1 = new CompletableFuture<>();
         Platform.runLater(() -> {
+            ((MainForm) controller).setVariant(5);
             theory.fire();
             completableFuture1.complete("completed");
         });
@@ -305,34 +312,28 @@ public class MainWindowTest extends InterfacesTest {
      * анализируемая программа.
      */
     @Test
-    void givenMainWindow_whenMenuBackToProgramAnalysisButtonPressed_thenProgramContentShowed() throws ExecutionException, InterruptedException {
+    void givenMainWindow_whenMenuBackToProgramAnalysisButtonPressed_thenProgramContentShowed() {
         // arrange
         MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
         Menu menu1 = menuBar.getMenus().get(0);
         MenuItem item12 = menu1.getItems().get(1);
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        MainForm mainForm = (MainForm) controller;
 
-        // act
-        CompletableFuture<String> completableFuture1 = new CompletableFuture<>();
         Platform.runLater(() -> {
+            // act
+            mainForm.setVariant(5);
             theory.fire();
-            completableFuture1.complete("completed");
-        });
-        completableFuture1.get();
-        CompletableFuture<String> completableFuture2 = new CompletableFuture<>();
-        Platform.runLater(() -> {
             item12.fire();
-            completableFuture2.complete("completed");
-        });
-        completableFuture2.get();
-        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
-        HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
-        // assert
-        Assertions.assertTrue(programContent.getParent().isVisible());
-        Assertions.assertNotNull(helpContent);
-        Assertions.assertFalse(helpContent.getParent().isVisible());
-        Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+            // assert
+            Assertions.assertTrue(programContent.getParent().isVisible());
+            Assertions.assertNotNull(helpContent);
+            Assertions.assertFalse(helpContent.getParent().isVisible());
+            Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+        });
     }
 
     /**
