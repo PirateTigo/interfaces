@@ -343,7 +343,9 @@ public class StartWindowTest extends InterfacesTest {
             ));
             Stage mainStage = ((StartForm) controller).getMainStage();
             Label variantLabel = (Label) mainStage.getScene().lookup("#variantLabel");
-            int actualVariant = Integer.parseInt(variantLabel.getText());
+            String variantText = variantLabel.getText();
+            String[] variantTextParts = variantText.split(" ");
+            int actualVariant = Integer.parseInt(variantTextParts[1]) - 1;
 
             // assert
             Assertions.assertEquals(expectedVariant, actualVariant);

@@ -13,6 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.sibsutis.pmik.hmi.interfaces.forms.programs.BaseProgramForm;
+import ru.sibsutis.pmik.hmi.interfaces.forms.programs.ProgramFormDescriptor;
 import ru.sibsutis.pmik.hmi.interfaces.windows.QuestionDialog;
 import ru.sibsutis.pmik.hmi.interfaces.windows.AuthorWindow;
 
@@ -175,12 +177,6 @@ public class MainForm {
     Button help;
 
     /**
-     * Номер варианта.
-     */
-    @FXML
-    Label variantLabel;
-
-    /**
      * Рабочая область.
      */
     @FXML
@@ -223,7 +219,21 @@ public class MainForm {
      */
     public void setVariant(int variant) {
         this.variant = variant;
-        variantLabel.setText(String.valueOf(variant));
+        openProgram();
+    }
+
+    /**
+     * Получает главное меню.
+     */
+    public MenuBar getMainMenu() {
+        return mainMenu;
+    }
+
+    /**
+     * Получает панель управления.
+     */
+    public ToolBar getButtons() {
+        return buttons;
     }
 
     /**
@@ -285,8 +295,8 @@ public class MainForm {
             }
             installTooltip(PROGRAM_ANALYSIS_BACK_TIP, theory);
             isTheoryOpened = !isTheoryOpened;
-            theoryForm.setParentRootWidth(root.getWidth());
-            theoryForm.setParentRootHeight(root.getHeight());
+            theoryForm.setWidth(root.getWidth());
+            theoryForm.setHeight(root.getHeight());
             theoryForm.openChapter(0, 0);
             return true;
         }
@@ -329,6 +339,19 @@ public class MainForm {
     }
 
     /**
+     * Открывает программу по варианту.
+     */
+    public void openProgram() {
+        ProgramFormDescriptor programFormDescriptor =
+                BaseProgramForm.load(variant, this);
+        if (programFormDescriptor != null) {
+            content.getChildren().addAll(programFormDescriptor.getContent());
+            programFormDescriptor.getProgramForm().setWidth(root.getWidth());
+            programFormDescriptor.getProgramForm().setHeight(root.getHeight());
+        }
+    }
+
+    /**
      * Вызывается автоматически после загрузки формы.
      */
     @FXML
@@ -356,13 +379,13 @@ public class MainForm {
 
             // Обеспечиваем адаптивную высоту формы справочной информации
             if (theoryForm != null) {
-                theoryForm.setParentRootHeight(newValue.doubleValue());
+                theoryForm.setHeight(newValue.doubleValue());
             }
         });
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             // Обеспечиваем адаптивную ширину формы справочной информации
             if (theoryForm != null) {
-                theoryForm.setParentRootWidth(newValue.doubleValue());
+                theoryForm.setWidth(newValue.doubleValue());
             }
         });
 

@@ -74,6 +74,7 @@ val testPatchArgs = mutableListOf(
         // Добавляем права доступа для TestFX
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.windows=org.testfx.junit5",
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.forms=org.testfx.junit5",
+        "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.forms.programs=org.testfx.junit5",
         "--add-exports", "javafx.graphics/com.sun.javafx.application=org.testfx",
         "--add-reads", "${rootProject.name}=org.testfx",
         // Добавляем права доступа для Awaitility

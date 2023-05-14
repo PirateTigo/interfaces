@@ -26,7 +26,7 @@ public class TheoryForm {
     private static final String BASE_HELP_DIRECTORY = "/help";
 
     /**
-     * Форма внешнего окна приложения.
+     * Родительская форма.
      */
     private MainForm parentForm;
 
@@ -54,32 +54,32 @@ public class TheoryForm {
     VBox webViewArea;
 
     /**
-     * Устанавливает форму внешнего окна.
+     * Устанавливает родительскую форму.
      *
-     * @param parentForm Внешнее окно.
+     * @param parentForm Родительская форма.
      */
     public void setParentForm(MainForm parentForm) {
         this.parentForm = parentForm;
     }
 
     /**
-     * Устанавливает текущую ширину внешнего окна.
+     * Устанавливает текущую ширину формы.
      *
-     * @param width Ширина.
+     * @param parentRootWidth Ширина родительской формы.
      */
-    public void setParentRootWidth(double width) {
-        helpContent.setPrefWidth(width);
-        helpMenu.setPrefWidth(width * 0.2);
-        webViewArea.setPrefWidth(width * 0.8);
+    public void setWidth(double parentRootWidth) {
+        helpContent.setPrefWidth(parentRootWidth);
+        helpMenu.setPrefWidth(parentRootWidth * 0.2);
+        webViewArea.setPrefWidth(parentRootWidth * 0.8);
     }
 
     /**
-     * Устанавливает текущую высоту внешнего окна.
+     * Устанавливает текущую высоту формы.
      *
-     * @param height Высота.
+     * @param parentRootHeight Высота родительской формы.
      */
-    public void setParentRootHeight(double height) {
-        double prefHeight = height
+    public void setHeight(double parentRootHeight) {
+        double prefHeight = parentRootHeight
                 - parentForm.mainMenu.getHeight()
                 - parentForm.buttons.getHeight();
         helpContent.setPrefHeight(prefHeight);
