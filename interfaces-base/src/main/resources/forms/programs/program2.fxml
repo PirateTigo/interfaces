@@ -28,11 +28,8 @@
                     </VBox>
                     <TextArea fx:id="outputFieldProgram2" wrapText="true"
                               prefHeight="200" maxWidth="400"/>
-                    <HBox>
-                        <Button fx:id="cancelProgram2" visible="false"
-                                text="Отменить" prefWidth="100">
-                        </Button>
-                    </HBox>
+                    <Button fx:id="cancelProgram2" visible="false"
+                            text="Отменить" prefWidth="100"/>
                 </VBox>
             </VBox>
         </HBox>

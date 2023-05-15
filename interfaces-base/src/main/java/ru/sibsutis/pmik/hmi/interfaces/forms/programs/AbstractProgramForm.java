@@ -28,7 +28,7 @@ public abstract class AbstractProgramForm {
     /**
      * Родительская форма.
      */
-    private MainForm parentForm;
+    protected MainForm parentForm;
 
     /**
      * Содержимое формы справочной информации.
@@ -116,6 +116,13 @@ public abstract class AbstractProgramForm {
                 - parentForm.getMainMenu().getHeight()
                 - parentForm.getButtons().getHeight();
         programContent.setPrefHeight(prefHeight);
+    }
+
+    /**
+     * Завершение работы анализируемой программы.
+     */
+    public void close() {
+        // Ничего не выполняет
     }
 
     /**

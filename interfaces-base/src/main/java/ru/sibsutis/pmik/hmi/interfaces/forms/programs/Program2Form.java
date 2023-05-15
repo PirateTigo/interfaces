@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.math.BigInteger;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -20,14 +21,15 @@ public class Program2Form extends AbstractProgramForm {
 
     private static final String ERROR_FIELD_CLASS = "error-field";
 
-    private static final String ERROR_TEXT =
-            "Введите целое положительное число больше 1";
+    private static final String ERROR_TEXT = "Введите целое положительное число";
 
     private static final String ERROR_FIELD_TEXT_FILL = "-fx-text-fill: #d35244;";
 
     private static final String ERROR_FIELD_TEXT_FILL_DISABLED ="-fx-text-fill: black;";
 
     private volatile boolean isCanceled = false;
+
+    private ExecutorService executorService;
 
     /**
      * Поле ввода исходного числа.
@@ -59,6 +61,11 @@ public class Program2Form extends AbstractProgramForm {
     @FXML
     Button cancelProgram2;
 
+    @Override
+    public void close() {
+        executorService.shutdown();
+    }
+
     /**
      * Вызывается автоматически после загрузки формы.
      */
@@ -66,10 +73,12 @@ public class Program2Form extends AbstractProgramForm {
     protected void initialize() {
         super.initialize();
 
+        executorService = Executors.newSingleThreadExecutor();
+
         // Устанавливаем обработчик для ввода исходного числа и начала расчетов
         okButtonProgram2.setOnAction(event -> {
             startWait();
-            Executors.newSingleThreadExecutor().submit(this::calculate);
+            executorService.submit(this::calculate);
         });
 
         // Устанавливаем обработчик для отмены процесса вычислений.
@@ -86,8 +95,8 @@ public class Program2Form extends AbstractProgramForm {
         // Устанавливаем шрифты
         setFont(header, 24, false);
         setFont(inputFieldProgram2, 16, false);
+        setFont(errorInputProgram2, 16, false);
         setFont(okButtonProgram2, 16, true);
-        setFont(okButtonProgram2, 16, false);
     }
 
     @Override
