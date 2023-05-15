@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -29,6 +30,8 @@ public class Program1Form extends AbstractProgramForm {
 
     private static final String ERROR_FIELD_TEXT_FILL_DISABLED ="-fx-text-fill: black;";
 
+    private ExecutorService executorService;
+
     /**
      * Поле ввода числа k.
      */
@@ -47,6 +50,11 @@ public class Program1Form extends AbstractProgramForm {
     @FXML
     TextArea outputPiField;
 
+    @Override
+    public void close() {
+        executorService.shutdown();
+    }
+
     /**
      * Вызывается автоматически после загрузки формы.
      */
@@ -54,11 +62,13 @@ public class Program1Form extends AbstractProgramForm {
     protected void initialize() {
         super.initialize();
 
+        executorService = Executors.newSingleThreadExecutor();
+
         // Устанавливаем обработчик для ввода значения числа пи
         inputPiPrecisionField.setOnKeyPressed(event -> {
             if (Objects.requireNonNull(event.getCode()) == KeyCode.ENTER) {
                 startWait();
-                Executors.newSingleThreadExecutor().submit(this::calculatePi);
+                executorService.submit(this::calculatePi);
             }
         });
 

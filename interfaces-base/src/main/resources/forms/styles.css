@@ -66,3 +66,7 @@
 #content {
     -fx-background-color: -fx-control-inner-background;
 }
+
+#operationProgram4 {
+    -fx-font: 16px Roboto-Regular, sans-serif;
+}
