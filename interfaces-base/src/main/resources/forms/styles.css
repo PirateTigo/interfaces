@@ -67,6 +67,7 @@
     -fx-background-color: -fx-control-inner-background;
 }
 
-#operationProgram4 {
+#operationProgram4,
+#resultProgram5 {
     -fx-font: 16px Roboto-Regular, sans-serif;
 }
