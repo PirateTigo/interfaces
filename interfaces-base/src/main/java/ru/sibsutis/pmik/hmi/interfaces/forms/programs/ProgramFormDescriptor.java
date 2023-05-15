@@ -12,7 +12,7 @@ public class ProgramFormDescriptor {
     /**
      * Контроллер формы.
      */
-    final private BaseProgramForm programForm;
+    final private AbstractProgramForm programForm;
 
     /**
      * Содержимое формы.
@@ -25,7 +25,7 @@ public class ProgramFormDescriptor {
      * @param programForm Контроллер формы.
      * @param content Содержимое формы.
      */
-    public ProgramFormDescriptor(BaseProgramForm programForm, List<Node> content) {
+    public ProgramFormDescriptor(AbstractProgramForm programForm, List<Node> content) {
         this.programForm = programForm;
         this.content = content;
     }
@@ -33,7 +33,7 @@ public class ProgramFormDescriptor {
     /**
      * Получает контроллер формы.
      */
-    public BaseProgramForm getProgramForm() {
+    public AbstractProgramForm getProgramForm() {
         return programForm;
     }
 

@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ru.sibsutis.pmik.hmi.interfaces.forms.programs.BaseProgramForm;
+import ru.sibsutis.pmik.hmi.interfaces.forms.programs.AbstractProgramForm;
 import ru.sibsutis.pmik.hmi.interfaces.forms.programs.ProgramFormDescriptor;
 import ru.sibsutis.pmik.hmi.interfaces.windows.QuestionDialog;
 import ru.sibsutis.pmik.hmi.interfaces.windows.AuthorWindow;
@@ -109,6 +109,11 @@ public class MainForm {
      * Признак того, что кнопка теории нажата.
      */
     private boolean isTheoryOpened = false;
+
+    /**
+     * Описатель формы.
+     */
+    private ProgramFormDescriptor programFormDescriptor;
 
     /**
      * Контейнер визуальных компонентов формы.
@@ -342,8 +347,8 @@ public class MainForm {
      * Открывает программу по варианту.
      */
     public void openProgram() {
-        ProgramFormDescriptor programFormDescriptor =
-                BaseProgramForm.load(variant, this);
+        programFormDescriptor =
+                AbstractProgramForm.load(variant, this);
         if (programFormDescriptor != null) {
             content.getChildren().addAll(programFormDescriptor.getContent());
             programFormDescriptor.getProgramForm().setWidth(root.getWidth());
@@ -381,11 +386,19 @@ public class MainForm {
             if (theoryForm != null) {
                 theoryForm.setHeight(newValue.doubleValue());
             }
+            // Обеспечиваем адаптивную высоту формы анализируемой программы
+            if (programFormDescriptor != null) {
+                programFormDescriptor.getProgramForm().setHeight(newValue.doubleValue());
+            }
         });
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             // Обеспечиваем адаптивную ширину формы справочной информации
             if (theoryForm != null) {
                 theoryForm.setWidth(newValue.doubleValue());
+            }
+            // Обеспечиваем адаптивную ширину формы анализируемой программы
+            if (programFormDescriptor != null) {
+                programFormDescriptor.getProgramForm().setWidth(newValue.doubleValue());
             }
         });
 
