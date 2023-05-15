@@ -2,6 +2,10 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +13,27 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <VBox spacing="50">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <VBox>
+                        <HBox spacing="50">
+                            <TextField fx:id="inputFieldProgram2"
+                                       prefWidth="250"/>
+                            <Button fx:id="okButtonProgram2"
+                                    text="ОК" prefWidth="100"/>
+                        </HBox>
+                        <Label fx:id="errorInputProgram2" style="-fx-text-fill: #d35244;"/>
+                    </VBox>
+                    <TextArea fx:id="outputFieldProgram2" wrapText="true"
+                              prefHeight="200" maxWidth="400"/>
+                    <HBox>
+                        <Button fx:id="cancelProgram2" visible="false"
+                                text="Отменить" prefWidth="100">
+                        </Button>
+                    </HBox>
+                </VBox>
             </VBox>
         </HBox>
     </VBox>
