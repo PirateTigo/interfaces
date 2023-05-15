@@ -71,3 +71,7 @@
 #resultProgram5 {
     -fx-font: 16px Roboto-Regular, sans-serif;
 }
+
+#coin:hover {
+    -fx-cursor: hand;
+}

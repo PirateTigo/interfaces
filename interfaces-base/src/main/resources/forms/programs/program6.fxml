@@ -2,6 +2,9 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +12,28 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <GridPane hgap="100" vgap="50" alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+                        <ImageView fx:id="coin"
+                                   fitHeight="50" fitWidth="50"/>
+                    </HBox>
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="20">
+                        <Label fx:id="successLabel" text="Успех"/>
+                        <Label fx:id="success"/>
+                    </VBox>
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="20">
+                        <Label fx:id="failLabel" text="Неудача"/>
+                        <Label fx:id="fail"/>
+                    </VBox>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="2"
+                          GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+                        <Button fx:id="resetProgram6" text="Ещё раз"/>
+                    </HBox>
+                </GridPane>
             </VBox>
         </HBox>
     </VBox>
