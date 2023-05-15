@@ -2,13 +2,28 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
-    <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-          alignment="CENTER">
-        <HBox fx:id="programContent" alignment="CENTER">
-            <Label fx:id="variantLabel" text="Вариант 1"/>
+    <VBox fx:id="programContent">
+        <Label fx:id="variantLabel" text="Вариант 1"/>
+        <HBox alignment="CENTER">
+            <VBox alignment="CENTER">
+                <Label fx:id="header"/>
+                <VBox spacing="50">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <VBox>
+                        <TextField fx:id="inputPiPrecisionField" promptText="Введите значение..."/>
+                        <Label fx:id="errorPi" style="-fx-text-fill: #d35244;"/>
+                    </VBox>
+                    <TextArea fx:id="outputPiField" wrapText="true"
+                              prefHeight="200" prefWidth="200"/>
+                </VBox>
+            </VBox>
         </HBox>
     </VBox>
 </AnchorPane>

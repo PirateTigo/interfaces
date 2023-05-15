@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Label?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
-    <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-          alignment="CENTER">
-        <HBox fx:id="programContent" alignment="CENTER">
-            <Label fx:id="variantLabel" text="Вариант 14"/>
+    <VBox fx:id="programContent">
+        <Label fx:id="variantLabel" text="Вариант 14"/>
+        <HBox alignment="CENTER">
+            <VBox alignment="CENTER">
+                <Label fx:id="header"/>
+            </VBox>
         </HBox>
     </VBox>
 </AnchorPane>

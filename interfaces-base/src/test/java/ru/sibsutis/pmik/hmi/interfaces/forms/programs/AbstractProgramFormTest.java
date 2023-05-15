@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.parallel.Isolated;
@@ -23,7 +23,7 @@ import java.io.IOException;
  * программ.
  */
 @Isolated
-public class BaseProgramFormTest extends InterfacesTest {
+public class AbstractProgramFormTest extends InterfacesTest {
 
     @SuppressWarnings("unused")
     @Start
@@ -61,7 +61,7 @@ public class BaseProgramFormTest extends InterfacesTest {
             String variantText = variantLabel.getText();
             String[] variantTextParts = variantText.split(" ");
             int actualVariant = Integer.parseInt(variantTextParts[1]) - 1;
-            HBox programContent = (HBox) mainScene.lookup("#programContent");
+            VBox programContent = (VBox) mainScene.lookup("#programContent");
 
             // assert
             Assertions.assertEquals(variant, actualVariant);

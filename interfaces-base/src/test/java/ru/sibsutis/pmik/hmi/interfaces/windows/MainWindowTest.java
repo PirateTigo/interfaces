@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.awaitility.Awaitility;
@@ -94,7 +95,7 @@ public class MainWindowTest extends InterfacesTest {
             Button help = (Button) windowScene.lookup(HELP_SELECTOR);
             ImageView helpView = (ImageView) windowScene.lookup("#helpView");
             AnchorPane content = (AnchorPane) windowScene.lookup("#content");
-            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
             Label variantLabel = (Label) windowScene.lookup("#variantLabel");
 
             // assert
@@ -238,11 +239,11 @@ public class MainWindowTest extends InterfacesTest {
             completableFuture.complete("completed");
         });
         completableFuture.get();
-        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
         // assert
-        Assertions.assertFalse(programContent.getParent().isVisible());
+        Assertions.assertFalse(programContent.isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
     }
@@ -267,11 +268,11 @@ public class MainWindowTest extends InterfacesTest {
             completableFuture.complete("completed");
         });
         completableFuture.get();
-        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
         // assert
-        Assertions.assertFalse(programContent.getParent().isVisible());
+        Assertions.assertFalse(programContent.isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
     }
@@ -297,7 +298,7 @@ public class MainWindowTest extends InterfacesTest {
             completableFuture2.complete("completed");
         });
         completableFuture2.get();
-        HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
         // assert
@@ -325,7 +326,7 @@ public class MainWindowTest extends InterfacesTest {
             mainForm.setVariant(5);
             theory.fire();
             item12.fire();
-            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
             HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
             // assert
@@ -353,14 +354,14 @@ public class MainWindowTest extends InterfacesTest {
             // act
             mainForm.setVariant(expectedVariant);
             help.fire();
-            HBox programContent = (HBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+            VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
             HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
             Accordion helpMenu = (Accordion) windowScene.lookup("#helpMenu");
             LinkedList<TitledPane> panes = new LinkedList<>(helpMenu.getPanes());
             String actualVariantName = panes.getLast().getText();
 
             // assert
-            Assertions.assertFalse(programContent.getParent().isVisible());
+            Assertions.assertFalse(programContent.isVisible());
             Assertions.assertNotNull(helpContent);
             Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
             Assertions.assertEquals(expectedVariantName, actualVariantName);

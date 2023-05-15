@@ -2,18 +2,22 @@ package ru.sibsutis.pmik.hmi.interfaces.forms.programs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import ru.sibsutis.pmik.hmi.interfaces.forms.MainForm;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Objects;
 
 /**
  * Контроллер анализируемой программы.
  */
-public class BaseProgramForm {
+public abstract class AbstractProgramForm {
 
     private static final String PROGRAM_FORM_PATH_TEMPLATE =
             "/forms/programs/program%s.fxml";
@@ -30,13 +34,19 @@ public class BaseProgramForm {
      * Содержимое формы справочной информации.
      */
     @FXML
-    HBox programContent;
+    VBox programContent;
 
     /**
      * Вариант программы.
      */
     @FXML
     Label variantLabel;
+
+    /**
+     * Заголовок программы.
+     */
+    @FXML
+    Label header;
 
     /**
      * Загружает форму анализируемой программы по варианту.
@@ -47,7 +57,7 @@ public class BaseProgramForm {
     public static ProgramFormDescriptor load(int variant, MainForm mainForm) {
         int variantNumber = variant + 1;
         URL formLocation = Objects.requireNonNull(
-                BaseProgramForm.class.getResource(
+                AbstractProgramForm.class.getResource(
                         String.format(PROGRAM_FORM_PATH_TEMPLATE, variantNumber)
         ));
         FXMLLoader formLoader = new FXMLLoader(formLocation);
@@ -56,8 +66,8 @@ public class BaseProgramForm {
             Class<?> programFormClass = Class.forName(
                     String.format(PROGRAM_CLASS_TEMPLATE, variantNumber)
             );
-            BaseProgramForm programForm =
-                    (BaseProgramForm) programFormClass.getConstructor().newInstance();
+            AbstractProgramForm programForm =
+                    (AbstractProgramForm) programFormClass.getConstructor().newInstance();
             programForm.setParentForm(mainForm);
             formLoader.setController(programForm);
             AnchorPane programPane = formLoader.load();
@@ -87,6 +97,13 @@ public class BaseProgramForm {
      */
     public void setWidth(double parentRootWidth) {
         programContent.setPrefWidth(parentRootWidth);
+        Insets variantLabelInsets = new Insets(
+                20,
+                20,
+                20,
+                parentRootWidth - 150
+        );
+        variantLabel.setPadding(variantLabelInsets);
     }
 
     /**
@@ -99,6 +116,49 @@ public class BaseProgramForm {
                 - parentForm.getMainMenu().getHeight()
                 - parentForm.getButtons().getHeight();
         programContent.setPrefHeight(prefHeight);
+    }
+
+    /**
+     * Метод обязательно должен быть вызван из одноименного метода,
+     * аннотированного аннотацией {@link FXML @FXML}, дочернего класса.
+     */
+    protected void initialize() {
+        // Устанавливаем метку варианта
+        setFont(variantLabel, 16, false);
+
+        // Устанавливаем заголовок программы
+        header.setText(getHeader());
+        setFont(header, 32, false);
+    }
+
+    /**
+     * Возвращает название заголовка программы.
+     */
+    protected abstract String getHeader();
+
+    /**
+     * Устанавливает шрифт для элемента управления.
+     *
+     * @param node Элемент управления.
+     * @param size Размер шрифта.
+     * @param bold Признак установки жирного начертания.
+     */
+    protected <T> void setFont(T node, int size, boolean bold) {
+        Class<?> clazz = getClass();
+        URL fontPath = Objects.requireNonNull(
+                clazz.getResource(bold
+                        ? MainForm.FONT_BOLD_PATH
+                        : MainForm.FONT_REGULAR_PATH)
+        );
+        Font font = Font.loadFont(fontPath.toExternalForm(), size);
+        try {
+            Method setFont = node.getClass()
+                    .getMethod("setFont", Font.class);
+            setFont.invoke(node, font);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+            ex.printStackTrace();
+            // Завершаем работу метода
+        }
     }
 
 }
