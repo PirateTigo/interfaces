@@ -192,8 +192,15 @@ public class MainForm {
      */
     public void setMainStage(Stage stage) {
         // Устанавливаем обработчик закрытия окна приложения
-        stage.setOnCloseRequest(windowEvent -> Platform.exit());
+        stage.setOnCloseRequest(windowEvent -> exit());
         mainStage = stage;
+    }
+
+    /**
+     * Возвращает основное окно приложения.
+     */
+    public Stage getMainStage() {
+        return mainStage;
     }
 
     /**
@@ -251,6 +258,9 @@ public class MainForm {
 
         if (isNeedNewVariant) {
             mainStage.close();
+            if (programFormDescriptor != null) {
+                programFormDescriptor.getProgramForm().close();
+            }
             startStage.show();
         }
     }
@@ -260,6 +270,9 @@ public class MainForm {
      */
     @SuppressWarnings("unused")
     public void exit() {
+        if (programFormDescriptor != null) {
+            programFormDescriptor.getProgramForm().close();
+        }
         Platform.exit();
     }
 
