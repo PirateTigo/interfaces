@@ -152,3 +152,9 @@
     -fx-text-fill: white;
     -fx-cursor: hand;
 }
+
+#resultBoxProgram9 {
+    -fx-border-color: gray;
+    -fx-border-radius: 0;
+    -fx-border-insets: 0 -20 -20 -20;
+}

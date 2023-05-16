@@ -2,6 +2,10 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +13,64 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <GridPane hgap="100" vgap="20" alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <RadioButton fx:id="cube" text="Куб"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="prism" text="Призма"
+                                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="cone" text="Конус"
+                                 GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="pyramid" text="Пирамида"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <RadioButton fx:id="sphere" text="Сфера"
+                                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <RadioButton fx:id="cylinder" text="Цилиндр"
+                                 GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <RadioButton fx:id="parallelepiped" text="Параллелепипед"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                 GridPane.columnSpan="3"/>
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="3"
+                          GridPane.columnSpan="3" alignment="CENTER">
+                        <HBox spacing="100">
+                            <VBox>
+                                <Label fx:id="edgeLabelProgram9" text="Ребро:"/>
+                                <TextField fx:id="edgeProgram9"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="heightLabelProgram9" text="Высота:"/>
+                                <TextField fx:id="heightProgram9"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="100">
+                            <VBox>
+                                <Label fx:id="squareLabelProgram9" text="Площадь основания:"/>
+                                <TextField fx:id="squareProgram9"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="radiusLabelProgram9" text="Радиус:"/>
+                                <TextField fx:id="radiusProgram9"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="4"
+                          GridPane.columnSpan="3" spacing="236">
+                        <Button fx:id="volumeButton" text="Объем"/>
+                        <VBox fx:id="resultBoxProgram9">
+                            <Label fx:id="dimensionIndex" text="3">
+                                <padding>
+                                    <Insets left="95"/>
+                                </padding>
+                            </Label>
+                            <HBox spacing="20">
+                                <Label fx:id="resultLabelProgram9" text="Результат (м ):"/>
+                                <Label fx:id="resultProgram9"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </GridPane>
             </VBox>
         </HBox>
     </VBox>
