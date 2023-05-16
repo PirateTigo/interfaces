@@ -93,10 +93,10 @@ public class Program2Form extends AbstractProgramForm {
                 });
 
         // Устанавливаем шрифты
-        setFont(header, 24, false);
-        setFont(inputFieldProgram2, 16, false);
-        setFont(errorInputProgram2, 16, false);
-        setFont(okButtonProgram2, 16, true);
+        setFont(header, 24, false, false);
+        setFont(inputFieldProgram2, 16, false, false);
+        setFont(errorInputProgram2, 16, false, false);
+        setFont(okButtonProgram2, 16, true, false);
     }
 
     @Override

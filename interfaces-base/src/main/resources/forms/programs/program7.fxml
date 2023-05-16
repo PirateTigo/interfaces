@@ -2,6 +2,8 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +11,25 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <VBox spacing="100">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <VBox>
+                        <HBox spacing="50" alignment="CENTER">
+                            <HBox fx:id="sourceData" spacing="30"/>
+                            <Button fx:id="startProgram7" text="Начать игру"/>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <Label fx:id="errorInputProgram7"
+                                   style="-fx-text-fill: #d35244;"/>
+                        </HBox>
+                    </VBox>
+                    <HBox fx:id="gameWord" spacing="20" alignment="CENTER"/>
+                    <HBox alignment="CENTER">
+                        <Button fx:id="resetProgram7" text="Начать сначала"/>
+                    </HBox>
+                </VBox>
             </VBox>
         </HBox>
     </VBox>

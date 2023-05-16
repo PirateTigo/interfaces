@@ -90,9 +90,9 @@ public class Program3Form extends AbstractProgramForm {
                 });
 
         // Устанавливаем шрифты
-        setFont(inputFieldProgram3, 16, false);
-        setFont(errorInputProgram3, 16, false);
-        setFont(inputFieldLabelProgram3, 16, false);
+        setFont(inputFieldProgram3, 16, false, false);
+        setFont(errorInputProgram3, 16, false, false);
+        setFont(inputFieldLabelProgram3, 16, false, false);
     }
 
     @Override

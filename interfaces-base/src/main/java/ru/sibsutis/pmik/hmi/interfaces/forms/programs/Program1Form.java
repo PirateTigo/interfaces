@@ -81,9 +81,9 @@ public class Program1Form extends AbstractProgramForm {
         });
 
         // Устанавливаем шрифты
-        setFont(inputPiPrecisionField, 16, false);
-        setFont(errorPi, 16, false);
-        setFont(outputPiField, 16, false);
+        setFont(inputPiPrecisionField, 16, false, false);
+        setFont(errorPi, 16, false, false);
+        setFont(outputPiField, 16, false, false);
     }
 
     @Override

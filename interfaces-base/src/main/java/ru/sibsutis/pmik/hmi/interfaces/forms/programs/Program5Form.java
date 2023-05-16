@@ -212,14 +212,14 @@ public class Program5Form extends AbstractProgramForm {
         cancelProgram5.setOnAction(event -> isCanceled = true);
 
         // Устанавливаем шрифты
-        setFont(digit1, 16, false);
-        setFont(digit2, 16, false);
-        setFont(digit3, 16, false);
-        setFont(digit4, 16, false);
-        setFont(digit5, 16, false);
-        setFont(digit6, 16, false);
-        setFont(errorInputProgram5, 16, false);
-        setFont(resultLabelProgram5, 16, false);
+        setFont(digit1, 16, false, false);
+        setFont(digit2, 16, false, false);
+        setFont(digit3, 16, false, false);
+        setFont(digit4, 16, false, false);
+        setFont(digit5, 16, false, false);
+        setFont(digit6, 16, false, false);
+        setFont(errorInputProgram5, 16, false, false);
+        setFont(resultLabelProgram5, 16, false, false);
     }
 
     @Override
