@@ -127,16 +127,16 @@ public class Program4Form extends AbstractProgramForm {
                 });
 
         // Устанавливаем шрифты
-        setFont(complex1Item1, 16, false);
-        setFont(complex1Item1Label, 16, false);
-        setFont(complex1Item2, 16, false);
-        setFont(complex1Item2Label, 16, false);
-        setFont(complex2Item1, 16, false);
-        setFont(complex2Item1Label, 16, false);
-        setFont(complex2Item2, 16, false);
-        setFont(complex2Item2Label, 16, false);
-        setFont(equalsProgram4, 20, false);
-        setFont(answerProgram4, 32, false);
+        setFont(complex1Item1, 16, false, false);
+        setFont(complex1Item1Label, 16, false, false);
+        setFont(complex1Item2, 16, false, false);
+        setFont(complex1Item2Label, 16, false, false);
+        setFont(complex2Item1, 16, false, false);
+        setFont(complex2Item1Label, 16, false, false);
+        setFont(complex2Item2, 16, false, false);
+        setFont(complex2Item2Label, 16, false, false);
+        setFont(equalsProgram4, 20, false, false);
+        setFont(answerProgram4, 32, false, false);
     }
 
     @Override

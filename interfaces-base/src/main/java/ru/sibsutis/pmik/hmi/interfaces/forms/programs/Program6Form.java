@@ -93,11 +93,11 @@ public class Program6Form extends AbstractProgramForm {
         });
 
         // Устанавливаем шрифты
-        setFont(successLabel, 28, false);
-        setFont(success, 28, false);
-        setFont(failLabel, 28, false);
-        setFont(fail, 28, false);
-        setFont(resetProgram6, 20, true);
+        setFont(successLabel, 28, false, false);
+        setFont(success, 28, false, false);
+        setFont(failLabel, 28, false, false);
+        setFont(fail, 28, false, false);
+        setFont(resetProgram6, 20, true, false);
     }
 
     @Override

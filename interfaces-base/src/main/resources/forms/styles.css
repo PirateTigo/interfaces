@@ -75,3 +75,16 @@
 #coin:hover {
     -fx-cursor: hand;
 }
+
+.secret-letter {
+    -fx-text-fill: black;
+    -fx-background-color: black;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+.non-secret-letter {
+    -fx-border-color: black;
+    -fx-border-insets: 0;
+    -fx-border-radius: 5;
+}

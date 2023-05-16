@@ -37,6 +37,10 @@ public class MainForm {
 
     public static final String FONT_BOLD_PATH = "/fonts/Roboto-Bold.ttf";
 
+    public static final String FONT_ITALIC_PATH = "/fonts/Roboto-Italic.ttf";
+
+    public static final String FONT_BOLD_ITALIC_PATH = "/fonts/Roboto-BoldItalic.ttf";
+
     private static final String STUDENT_IMAGE_PATH = "/images/student.png";
 
     private static final String VARIANT_CHOICE_IMAGE_PATH = "/images/variant-choice.png";

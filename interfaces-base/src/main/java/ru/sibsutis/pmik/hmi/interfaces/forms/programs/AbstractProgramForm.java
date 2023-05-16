@@ -131,11 +131,11 @@ public abstract class AbstractProgramForm {
      */
     protected void initialize() {
         // Устанавливаем метку варианта
-        setFont(variantLabel, 16, false);
+        setFont(variantLabel, 16, false, true);
 
         // Устанавливаем заголовок программы
         header.setText(getHeader());
-        setFont(header, 32, false);
+        setFont(header, 32, false, false);
     }
 
     /**
@@ -149,13 +149,19 @@ public abstract class AbstractProgramForm {
      * @param node Элемент управления.
      * @param size Размер шрифта.
      * @param bold Признак установки жирного начертания.
+     * @param italic Признак установки курсивного начертания.
      */
-    protected <T> void setFont(T node, int size, boolean bold) {
+    protected <T> void setFont(T node, int size, boolean bold, boolean italic) {
         Class<?> clazz = getClass();
         URL fontPath = Objects.requireNonNull(
                 clazz.getResource(bold
-                        ? MainForm.FONT_BOLD_PATH
-                        : MainForm.FONT_REGULAR_PATH)
+                        ? (italic
+                            ? MainForm.FONT_BOLD_ITALIC_PATH
+                            : MainForm.FONT_BOLD_PATH)
+                        : (italic
+                            ? MainForm.FONT_ITALIC_PATH
+                            : MainForm.FONT_REGULAR_PATH)
+                )
         );
         Font font = Font.loadFont(fontPath.toExternalForm(), size);
         try {
