@@ -2,6 +2,10 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +13,86 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <GridPane hgap="100" vgap="20" alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <RadioButton fx:id="square" text="Квадрат"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="triangle" text="Треугольник"
+                                 GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="trapezoid" text="Трапеция"
+                                 GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="rectangle" text="Прямоугольник"
+                                 GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <RadioButton fx:id="circle" text="Окружность"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <RadioButton fx:id="rhombus" text="Ромб"
+                                 GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <RadioButton fx:id="parallelogram" text="Параллелограмм"
+                                 GridPane.columnIndex="2" GridPane.rowIndex="1"
+                                 GridPane.columnSpan="2"/>
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="2"
+                          GridPane.columnSpan="4" alignment="CENTER">
+                        <HBox spacing="50">
+                            <VBox>
+                                <Label fx:id="back1LabelProgram10" text="Сторона 1:"/>
+                                <TextField fx:id="back1Program10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="heightLabelProgram10" text="Высота:"/>
+                                <TextField fx:id="heightProgram10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="base1LabelProgram10" text="Основание 1:"/>
+                                <TextField fx:id="base1Program10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="diagonal1LabelProgram10" text="Диагональ 1:"/>
+                                <TextField fx:id="diagonal1Program10" prefWidth="150"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="50">
+                            <VBox>
+                                <Label fx:id="back2LabelProgram10" text="Сторона 2:"/>
+                                <TextField fx:id="back2Program10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="radiusLabelProgram10" text="Радиус:"/>
+                                <TextField fx:id="radiusProgram10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="base2LabelProgram10" text="Основание 2:"/>
+                                <TextField fx:id="base2Program10" prefWidth="150"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="diagonal2LabelProgram10" text="Диагональ 2:"/>
+                                <TextField fx:id="diagonal2Program10" prefWidth="150"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="100">
+                            <VBox>
+                                <Label fx:id="back3LabelProgram10" text="Сторона 3:"/>
+                                <TextField fx:id="back3Program10" prefWidth="150"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3"
+                          GridPane.columnSpan="4" spacing="236" alignment="CENTER">
+                        <Button fx:id="squareButton" text="Площадь"/>
+                        <VBox fx:id="resultBoxProgram10">
+                            <Label fx:id="dimensionIndex2" text="2">
+                                <padding>
+                                    <Insets left="95"/>
+                                </padding>
+                            </Label>
+                            <HBox spacing="20">
+                                <Label fx:id="resultLabelProgram10" text="Результат (м ):"/>
+                                <Label fx:id="resultProgram10"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </GridPane>
             </VBox>
         </HBox>
     </VBox>

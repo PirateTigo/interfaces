@@ -153,7 +153,8 @@
     -fx-cursor: hand;
 }
 
-#resultBoxProgram9 {
+#resultBoxProgram9,
+#resultBoxProgram10 {
     -fx-border-color: gray;
     -fx-border-radius: 0;
     -fx-border-insets: 0 -20 -20 -20;
