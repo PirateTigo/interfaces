@@ -2,6 +2,10 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
@@ -9,6 +13,38 @@
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>
+                <VBox spacing="50" alignment="CENTER">
+                    <padding>
+                        <Insets topRightBottomLeft="50"/>
+                    </padding>
+                    <VBox spacing="10">
+                        <VBox>
+                            <Label fx:id="cipherKeyLabel" text="Ключ:"/>
+                            <TextField fx:id="cipherKey" prefWidth="50"/>
+                            <Label fx:id="cipherKeyError"
+                                   style="-fx-text-fill: #d35244;"/>
+                        </VBox>
+                        <VBox>
+                            <Label fx:id="messageLabel" text="Введите значение:"/>
+                            <TextArea fx:id="message"
+                                      prefWidth="400" prefHeight="70"
+                                      wrapText="true"/>
+                            <Label fx:id="messageError"
+                                   style="-fx-text-fill: #d35244;"/>
+                        </VBox>
+                    </VBox>
+                    <HBox spacing="100" alignment="CENTER">
+                        <Button fx:id="toEncode" text="Зашифровать"/>
+                        <Button fx:id="toDecode" text="Расшифровать"/>
+                    </HBox>
+                    <VBox>
+                        <TextArea fx:id="cipher"
+                                  prefWidth="400" prefHeight="70"
+                                  wrapText="true"/>
+                        <Label fx:id="cipherError"
+                               style="-fx-text-fill: #d35244;"/>
+                    </VBox>
+                </VBox>
             </VBox>
         </HBox>
     </VBox>

@@ -88,3 +88,67 @@
     -fx-border-insets: 0;
     -fx-border-radius: 5;
 }
+
+#toDecode:pressed {
+    -fx-background-color:
+        linear-gradient(
+            gray 0%,
+            darkgreen 100%
+        ),
+        darkgreen;
+    -fx-background-radius: 5, 5;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: gray;
+    -fx-border-insets: 0;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#toDecode {
+    -fx-background-color:
+        linear-gradient(
+            gray 0%,
+            forestgreen 100%
+        ),
+        forestgreen;
+    -fx-background-radius: 5, 5;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: gray;
+    -fx-border-insets: 0;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#toEncode:pressed {
+    -fx-background-color:
+        linear-gradient(
+            gray 0%,
+            indianred 100%
+        ),
+        indianred;
+    -fx-background-radius: 5, 5;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: gray;
+    -fx-border-insets: 0;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#toEncode {
+    -fx-background-color:
+        linear-gradient(
+            gray 0%,
+            tomato 100%
+        ),
+        tomato;
+    -fx-background-radius: 5, 5;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: gray;
+    -fx-border-insets: 0;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
