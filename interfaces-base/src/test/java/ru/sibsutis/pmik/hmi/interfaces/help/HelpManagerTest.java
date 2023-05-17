@@ -21,14 +21,12 @@ public class HelpManagerTest {
     void givenHelpManager_whenGetMenuStructure_thenStructureIsGot() throws URISyntaxException, IOException {
         // arrange
         HelpManager helpManager = new HelpManager();
-        String expectedTheme1 = "Тема1";
-        String expectedSubTheme11 = "Глава1";
-        String expectedSubTheme12 = "Глава2";
-        String expectedSubTheme13 = "Глава3";
-        String expectedTheme2 = "Тема2";
-        String expectedSubTheme21 = "Глава1";
-        String expectedSubTheme22 = "Глава2";
-        String expectedSubTheme23 = "Глава3";
+        String expectedTheme1 = "CWT-анализ";
+        String expectedSubTheme11 = "Описание технологии";
+        String expectedSubTheme12 = "Что даёт CWT-анализ";
+        String expectedSubTheme13 = "Типичные ошибки и рекомендации";
+        String expectedTheme2 = "Анализ GOMS";
+        String expectedSubTheme21 = "Описание";
 
         // act
         Map<String, Map<String, String>> helpStructure =
@@ -41,8 +39,6 @@ public class HelpManagerTest {
         Assertions.assertTrue(helpStructure.get(expectedTheme1).containsKey(expectedSubTheme12));
         Assertions.assertTrue(helpStructure.get(expectedTheme1).containsKey(expectedSubTheme13));
         Assertions.assertTrue(helpStructure.get(expectedTheme2).containsKey(expectedSubTheme21));
-        Assertions.assertTrue(helpStructure.get(expectedTheme2).containsKey(expectedSubTheme22));
-        Assertions.assertTrue(helpStructure.get(expectedTheme2).containsKey(expectedSubTheme23));
     }
 
 }

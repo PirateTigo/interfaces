@@ -1,11 +1,9 @@
-# Тема1
-## [Глава1](chapter11.html)
-## [Глава2](chapter12.html)
-## [Глава3](chapter13.html)
-# Тема2
-## [Глава1](chapter21.html)
-## [Глава2](chapter22.html)
-## [Глава3](chapter23.html)
+# CWT-анализ
+## [Описание технологии](chapter11.html)
+## [Что даёт CWT-анализ](chapter12.html)
+## [Типичные ошибки и рекомендации](chapter13.html)
+# Анализ GOMS
+## [Описание](chapter21.html)
 # Вариант 1
 ## [Описание](variant1.html)
 # Вариант 2
@@ -26,13 +24,3 @@
 ## [Описание](variant9.html)
 # Вариант 10
 ## [Описание](variant10.html)
-# Вариант 11
-## [Описание](variant11.html)
-# Вариант 12
-## [Описание](variant12.html)
-# Вариант 13
-## [Описание](variant13.html)
-# Вариант 14
-## [Описание](variant14.html)
-# Вариант 15
-## [Описание](variant15.html)
