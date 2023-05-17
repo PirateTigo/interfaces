@@ -118,6 +118,7 @@ jlink {
                 "--icon", "src/main/resources/icons/interfaces.ico"
         )
         installerOptions = listOf(
+                "--icon", "${rootDir}/${name}/src/main/resources/icons/interfaces.ico",
                 "--win-dir-chooser",
                 "--win-menu",
                 "--win-shortcut",
