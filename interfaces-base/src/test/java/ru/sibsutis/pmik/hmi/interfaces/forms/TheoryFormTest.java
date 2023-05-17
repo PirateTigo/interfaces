@@ -74,7 +74,7 @@ public class TheoryFormTest extends InterfacesTest {
         // arrange
         Accordion helpMenu = (Accordion) helpContent.lookup("#helpMenu");
         VBox webViewArea = (VBox) helpContent.lookup("#webViewArea");
-        String expectedSelectedItem = "Глава1";
+        String expectedSelectedItem = "Описание технологии";
 
         // act
         TitledPane firstPane = helpMenu.getPanes().get(0);
@@ -98,7 +98,7 @@ public class TheoryFormTest extends InterfacesTest {
         VBox webViewArea = (VBox) helpContent.lookup("#webViewArea");
         MainForm mainForm = (MainForm) controller;
         TheoryForm theoryForm = mainForm.getTheoryForm();
-        int expectedTheme = 1;
+        int expectedTheme = 0;
         int expectedChapter = 1;
         TitledPane testedPane = helpMenu.getPanes().get(expectedTheme);
 

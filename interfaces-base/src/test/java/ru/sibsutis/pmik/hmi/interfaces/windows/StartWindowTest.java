@@ -94,7 +94,8 @@ public class StartWindowTest extends InterfacesTest {
         Label message = (Label) windowScene.lookup("#message");
         TextField code = (TextField) windowScene.lookup("#code");
         Label error = (Label) windowScene.lookup("#error");
-        ImageView universityImageView = (ImageView) windowScene.lookup("#universityImageView");
+        ImageView universityImageView =
+                (ImageView) windowScene.lookup("#universityImageView");
 
         // assert
         Assertions.assertNotNull(startImageView);
@@ -178,7 +179,8 @@ public class StartWindowTest extends InterfacesTest {
     @Test
     void givenStartWindow_whenUniversityImageViewShowed_thenHasCorrectSizes() {
         // arrange
-        ImageView universityImageView = (ImageView) windowScene.lookup("#universityImageView");
+        ImageView universityImageView =
+                (ImageView) windowScene.lookup("#universityImageView");
         int expectedWidth = 70;
         int expectedHeight = 70;
 
@@ -326,7 +328,7 @@ public class StartWindowTest extends InterfacesTest {
     void givenStartWindow_whenCodeIsCorrect_variantIsCorrect() {
         // arrange
         TextField code = (TextField) windowScene.lookup("#code");
-        int expectedVariant = 2;
+        int expectedVariant = 7;
 
         // act
         code.setText("17");
