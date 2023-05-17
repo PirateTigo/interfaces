@@ -31,7 +31,7 @@ public class StartForm {
 
     private static final String NUMBER_FORMAT_ERROR = "Введите целое положительное число";
 
-    private static final int VARIANTS_COUNT = 15;
+    private static final int VARIANTS_COUNT = 10;
 
     /**
      * Контейнер визуальных компонентов формы.
