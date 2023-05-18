@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
 
 <AnchorPane fx:id="root" xmlns:fx="http://javafx.com/fxml">
     <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
@@ -36,6 +37,9 @@
                            preserveRatio="true"/>
             </HBox>
             <Pane HBox.hgrow="ALWAYS"/>
+            <HBox prefWidth="${root.width * 0.4}" alignment="CENTER">
+                <Label fx:id="mainHeader"/>
+            </HBox>
             <HBox spacing="8">
                 <Button fx:id="variantChoice"
                         text="Изменить код"
