@@ -70,7 +70,7 @@ tasks.withType<JavaCompile> {
 // Дополнительные параметры JVM для модульного тестирования
 val testPatchArgs = mutableListOf(
         // Разрешаем потреблять больше памяти для визуального тестирования
-        "-Xmx2g",
+        "-Xmx4g",
         // Добавляем права доступа для TestFX
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.windows=org.testfx.junit5",
         "--add-opens", "${rootProject.name}/ru.sibsutis.pmik.hmi.interfaces.forms=org.testfx.junit5",

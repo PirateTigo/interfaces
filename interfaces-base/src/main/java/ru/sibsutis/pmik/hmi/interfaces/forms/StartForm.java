@@ -29,7 +29,7 @@ public class StartForm {
 
     private static final String ERROR_FIELD_CSS_CLASS = "error-field";
 
-    private static final String NUMBER_FORMAT_ERROR = "Введите целое положительное число";
+    private static final String NUMBER_FORMAT_ERROR = "Введите целое неотрицательное число";
 
     private static final int VARIANTS_COUNT = 10;
 
@@ -68,6 +68,12 @@ public class StartForm {
      */
     @FXML
     Label error;
+
+    /**
+     * Подсказка по вводу значения кода.
+     */
+    @FXML
+    Label tip;
 
     /**
      * Ссылка на сайт университета.
@@ -166,6 +172,10 @@ public class StartForm {
 
         // Добавляем сообщение об ошибке
         error.setFont(font);
+
+        // Добавляем подсказку
+        font = Font.loadFont(fontPath.toExternalForm(), 10);
+        tip.setFont(font);
 
         // Добавляем ссылку на сайт университета
         URL universityImagePath = Objects.requireNonNull(clazz.getResource(UNIVERSITY_IMAGE_PATH));
