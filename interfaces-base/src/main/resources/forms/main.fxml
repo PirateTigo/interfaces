@@ -22,6 +22,7 @@
                 <MenuItem text="Выход" onAction="#exit"/>
             </Menu>
             <Menu text="Справка">
+                <MenuItem text="Описание анализируемой программы" onAction="#helpButtonHandler"/>
                 <MenuItem text="Теория" onAction="#openTheory"/>
                 <MenuItem text="Об авторе" onAction="#authorHandler"/>
             </Menu>
@@ -59,7 +60,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="help"
-                        text="Помощь"
+                        text="Подсказка"
                         prefWidth="${root.height * 0.16}"
                         prefHeight="${root.height * 0.12}">
                     <graphic>

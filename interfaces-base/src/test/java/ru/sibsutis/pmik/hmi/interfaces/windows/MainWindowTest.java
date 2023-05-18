@@ -128,8 +128,9 @@ public class MainWindowTest extends InterfacesTest {
         String expectedMenuItem11Text = "Изменить введенный код";
         String expectedMenuItem12Text = "Анализ программы";
         String expectedMenuItem14Text = "Выход";
-        String expectedMenuItem21Text = "Теория";
-        String expectedMenuItem22Text = "Об авторе";
+        String expectedMenuItem21Text = "Описание анализируемой программы";
+        String expectedMenuItem22Text = "Теория";
+        String expectedMenuItem23Text = "Об авторе";
 
         // act
         ObservableList<Menu> menus = menuBar.getMenus();
@@ -152,8 +153,10 @@ public class MainWindowTest extends InterfacesTest {
         ObservableList<MenuItem> menu2Items = menu2.getItems();
         MenuItem item21 = menu2Items.get(0);
         MenuItem item22 = menu2Items.get(1);
+        MenuItem item23 = menu2Items.get(2);
         String actualMenuItem21Text = item21.getText();
         String actualMenuItem22Text = item22.getText();
+        String actualMenuItem23Text = item23.getText();
 
         // assert
         Assertions.assertEquals(expectedMenu1Text, actualMenu1Text);
@@ -163,6 +166,7 @@ public class MainWindowTest extends InterfacesTest {
         Assertions.assertEquals(expectedMenuItem14Text, actualMenuItem14Text);
         Assertions.assertEquals(expectedMenuItem21Text, actualMenuItem21Text);
         Assertions.assertEquals(expectedMenuItem22Text, actualMenuItem22Text);
+        Assertions.assertEquals(expectedMenuItem23Text, actualMenuItem23Text);
         Assertions.assertTrue(isMenuItem13Separator);
     }
 
@@ -257,14 +261,14 @@ public class MainWindowTest extends InterfacesTest {
         // arrange
         MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
         Menu menu2 = menuBar.getMenus().get(1);
-        MenuItem item21 = menu2.getItems().get(0);
+        MenuItem item22 = menu2.getItems().get(1);
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
 
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
             // act
             ((MainForm) controller).setVariant(5);
-            item21.fire();
+            item22.fire();
             completableFuture.complete("completed");
         });
         completableFuture.get();
@@ -338,7 +342,7 @@ public class MainWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем, что после нажатия кнопки "Помощь" отображается справочная
+     * Проверяем, что после нажатия кнопки "Подсказка" отображается справочная
      * информация по описанию текущего варианта программы.
      */
     @Test
@@ -366,6 +370,41 @@ public class MainWindowTest extends InterfacesTest {
             Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
             Assertions.assertEquals(expectedVariantName, actualVariantName);
         });
+    }
+
+    /**
+     * Проверяем, что после нажатия кнопки "Справка->Описание анализируемой программы"
+     * отображается справочная информация.
+     */
+    @Test
+    void givenMainWindow_whenMenuHelpButtonPressed_thenHelpShowed() throws ExecutionException, InterruptedException {
+        // arrange
+        MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
+        Menu menu2 = menuBar.getMenus().get(1);
+        MenuItem item21 = menu2.getItems().get(0);
+        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        int expectedVariant = 5;
+        String expectedVariantName = "Вариант 6";
+
+        CompletableFuture<String> completableFuture = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            // act
+            ((MainForm) controller).setVariant(expectedVariant);
+            item21.fire();
+            completableFuture.complete("completed");
+        });
+        completableFuture.get();
+        VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+        Accordion helpMenu = (Accordion) windowScene.lookup("#helpMenu");
+        LinkedList<TitledPane> panes = new LinkedList<>(helpMenu.getPanes());
+        String actualVariantName = panes.getLast().getText();
+
+        // assert
+        Assertions.assertFalse(programContent.isVisible());
+        Assertions.assertNotNull(helpContent);
+        Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
+        Assertions.assertEquals(expectedVariantName, actualVariantName);
     }
 
     /**
@@ -433,7 +472,7 @@ public class MainWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем корректность всплывающей подсказки кнопки "Помощь".
+     * Проверяем корректность всплывающей подсказки кнопки "Подсказка".
      */
     @Test
     void givenMainWindow_whenHoverOnVariantHelp_thenTooltipShowed() {
