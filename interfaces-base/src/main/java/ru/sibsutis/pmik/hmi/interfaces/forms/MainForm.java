@@ -47,7 +47,7 @@ public class MainForm {
 
     private static final String THEORY_IMAGE_PATH = "/images/theory.png";
 
-    private static final String HELP_IMAGE_PATH = "/images/help.png";
+    private static final String TIP_IMAGE_PATH = "/images/tip.png";
 
     private static final String THEORY_FORM_PATH = "/forms/theory.fxml";
 
@@ -291,6 +291,14 @@ public class MainForm {
     }
 
     /**
+     * Открывает описание функциональных возможностей анализируемой программы.
+     */
+    public void helpButtonHandler() {
+        openTheory();
+        theoryForm.openLastTheme();
+    }
+
+    /**
      * Открывает справочную информацию.
      */
     public boolean openTheory() {
@@ -434,13 +442,10 @@ public class MainForm {
         installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
         theory.setOnAction(event -> theoryButtonHandler());
 
-        // Добавляем кнопку "Помощь" панели управления
-        initButton(HELP_IMAGE_PATH, helpView, help);
+        // Добавляем кнопку "Подсказка" панели управления
+        initButton(TIP_IMAGE_PATH, helpView, help);
         installTooltip(HELP_BUTTON_TIP, help);
-        help.setOnAction(event -> {
-            openTheory();
-            theoryForm.openLastTheme();
-        });
+        help.setOnAction(event -> helpButtonHandler());
     }
 
     /**

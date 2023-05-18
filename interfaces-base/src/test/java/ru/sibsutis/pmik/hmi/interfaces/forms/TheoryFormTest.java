@@ -37,12 +37,12 @@ public class TheoryFormTest extends InterfacesTest {
     void setUp() throws ExecutionException, InterruptedException {
         MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
         Menu menu2 = menuBar.getMenus().get(1);
-        MenuItem item21 = menu2.getItems().get(0);
+        MenuItem item22 = menu2.getItems().get(1);
 
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
             // act
-            item21.fire();
+            item22.fire();
             completableFuture.complete("completed");
         });
         completableFuture.get();
