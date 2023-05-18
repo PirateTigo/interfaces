@@ -125,7 +125,7 @@ public class MainWindowTest extends InterfacesTest {
         MenuBar menuBar = (MenuBar) windowScene.lookup(MAIN_MENU_SELECTOR);
         String expectedMenu1Text = "Файл";
         String expectedMenu2Text = "Справка";
-        String expectedMenuItem11Text = "Выбор варианта";
+        String expectedMenuItem11Text = "Изменить введенный код";
         String expectedMenuItem12Text = "Анализ программы";
         String expectedMenuItem14Text = "Выход";
         String expectedMenuItem21Text = "Теория";
@@ -167,7 +167,7 @@ public class MainWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем, что при нажатии на кнопку "Вариант" отображается предупреждающее
+     * Проверяем, что при нажатии на кнопку "Изменить код" отображается предупреждающее
      * диалоговое окно.
      */
     @Test
@@ -183,7 +183,7 @@ public class MainWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем, что при нажатии на кнопку меню "Файл->Выбор варианта" отображается
+     * Проверяем, что при нажатии на кнопку меню "Файл->Изменить введенный код" отображается
      * предупреждающее диалоговое окно.
      */
     @Test
@@ -369,7 +369,7 @@ public class MainWindowTest extends InterfacesTest {
     }
 
     /**
-     * Проверяем корректность всплывающей подсказки кнопки "Вариант".
+     * Проверяем корректность всплывающей подсказки кнопки "Изменить введенный код".
      */
     @Test
     void givenMainWindow_whenHoverOnVariantChoosingButton_thenTooltipShowed() {
@@ -382,7 +382,7 @@ public class MainWindowTest extends InterfacesTest {
         Awaitility.await()
                 .atMost(Duration.ofSeconds(WAITING_TIMEOUT))
                 .until(() -> checkTipIsShowed(
-                        "Выбор варианта анализируемой программы",
+                        "Изменить введенный ранее код анализируемой программы",
                         VARIANT_CHOICE_SELECTOR
                 ));
     }
