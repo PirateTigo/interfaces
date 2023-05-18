@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "ru.sibsutis.pmik.hmi"
-version = "1.0.0"
+version = "1.1.0"
 description = "Программный комплекс для изучения правил построения интерфейсов"
 
 val interfacesMainClass = "$group.${rootProject.name}.GUIStarter"
