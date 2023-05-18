@@ -431,6 +431,8 @@ public class MainForm {
         URL studentImagePath = Objects.requireNonNull(clazz.getResource(STUDENT_IMAGE_PATH));
         Image studentImage = new Image(studentImagePath.toString(), true);
         studentView.setImage(studentImage);
+        studentView.setOnMouseClicked(event -> backToProgramAnalysis());
+        Tooltip.install(studentView, new Tooltip(PROGRAM_ANALYSIS_BACK_TIP));
 
         // Добавляем кнопку "Вариант" панели управления
         initButton(VARIANT_CHOICE_IMAGE_PATH, variantChoiceView, variantChoice);

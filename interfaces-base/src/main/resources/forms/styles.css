@@ -23,6 +23,10 @@
     -fx-prompt-text-fill: transparent;
 }
 
+#studentView {
+    -fx-cursor: hand;
+}
+
 .toolbar-button:hover {
     -fx-cursor: hand;
 }

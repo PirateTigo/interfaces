@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.Start;
+import org.testfx.robot.Motion;
 import ru.sibsutis.pmik.hmi.interfaces.InterfacesTest;
 import ru.sibsutis.pmik.hmi.interfaces.forms.MainForm;
 
@@ -339,6 +341,35 @@ public class MainWindowTest extends InterfacesTest {
             Assertions.assertFalse(helpContent.getParent().isVisible());
             Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
         });
+    }
+
+    /**
+     * Проверяем, что нажатие на изображение студента возвращает отображение
+     * содержимого рабочей области.
+     */
+    @Test
+    void givenMainWindow_whenStudentImagePressed_thenProgramContentIsShowed() throws ExecutionException, InterruptedException {
+        // arrange
+        Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        CompletableFuture<String> completableFuture1 = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            ((MainForm) controller).setVariant(5);
+            theory.fire();
+            completableFuture1.complete("completed");
+        });
+        completableFuture1.get();
+        ImageView studentView = (ImageView) windowScene.lookup("#studentView");
+
+        //act
+        robot.clickOn(studentView, Motion.DEFAULT, MouseButton.PRIMARY);
+        VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
+        HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+
+        // assert
+        Assertions.assertTrue(programContent.getParent().isVisible());
+        Assertions.assertNotNull(helpContent);
+        Assertions.assertFalse(helpContent.getParent().isVisible());
+        Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
     }
 
     /**
