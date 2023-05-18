@@ -10,7 +10,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml">
     <VBox fx:id="programContent">
-        <Label fx:id="variantLabel" text="Вариант 5"/>
+        <Label fx:id="variantLabel" visible="false" text="Вариант 5"/>
         <HBox alignment="CENTER">
             <VBox alignment="CENTER">
                 <Label fx:id="header"/>

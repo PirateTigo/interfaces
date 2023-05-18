@@ -16,7 +16,7 @@
         <MenuBar fx:id="mainMenu" prefWidth="${root.width}"
                  AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
             <Menu text="Файл">
-                <MenuItem text="Выбор варианта" onAction="#initVariantChoosing"/>
+                <MenuItem text="Изменить введенный код" onAction="#initVariantChoosing"/>
                 <MenuItem text="Анализ программы" onAction="#backToProgramAnalysis"/>
                 <SeparatorMenuItem/>
                 <MenuItem text="Выход" onAction="#exit"/>
@@ -37,8 +37,8 @@
             <Pane HBox.hgrow="ALWAYS"/>
             <HBox spacing="8">
                 <Button fx:id="variantChoice"
-                        text="Вариант"
-                        prefWidth="${root.height * 0.12}"
+                        text="Изменить код"
+                        prefWidth="${root.height * 0.16}"
                         prefHeight="${root.height * 0.12}">
                     <graphic>
                         <ImageView fx:id="variantChoiceView"
@@ -49,7 +49,7 @@
                 </Button>
                 <Button fx:id="theory"
                         text="Теория"
-                        prefWidth="${root.height * 0.12}"
+                        prefWidth="${root.height * 0.16}"
                         prefHeight="${root.height * 0.12}">
                     <graphic>
                         <ImageView fx:id="theoryView"
@@ -60,7 +60,7 @@
                 </Button>
                 <Button fx:id="help"
                         text="Помощь"
-                        prefWidth="${root.height * 0.12}"
+                        prefWidth="${root.height * 0.16}"
                         prefHeight="${root.height * 0.12}">
                     <graphic>
                         <ImageView fx:id="helpView"

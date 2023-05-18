@@ -53,10 +53,10 @@ public class MainForm {
 
     private static final String VARIANT_CHOOSING_QUESTION =
             "Данное действие приведет к закрытию анализируемой программы. \n\n" +
-            "Вы действительно желаете выбрать другой вариант?";
+            "Вы действительно желаете указать другой код?";
 
     private static final String VARIANT_CHOOSING_TIP =
-            "Выбор варианта анализируемой программы";
+            "Изменить введенный ранее код анализируемой программы";
 
     private static final String THEORY_BUTTON_TIP_DEFAULT =
             "Теория по проведению анализа интерфейса";

@@ -49,7 +49,7 @@ public class VariantChoosingQuestionDialogTest extends InterfacesTest {
         Runnable test = () -> {
             // arrange
             String expectedText = "Данное действие приведет к закрытию анализируемой программы. \n\n" +
-                    "Вы действительно желаете выбрать другой вариант?";
+                    "Вы действительно желаете указать другой код?";
 
             // act
             Label textLabel = (Label) dialogScene.lookup(LABEL_SELECTOR);
