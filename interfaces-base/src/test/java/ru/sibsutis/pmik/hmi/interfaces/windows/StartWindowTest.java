@@ -89,11 +89,13 @@ public class StartWindowTest extends InterfacesTest {
         // arrange
 
         // act
-        ImageView startImageView = (ImageView) windowScene.lookup("#startImageView");
+        ImageView startImageView =
+                (ImageView) windowScene.lookup("#startImageView");
         Label header = (Label) windowScene.lookup("#header");
         Label message = (Label) windowScene.lookup("#message");
         TextField code = (TextField) windowScene.lookup("#code");
         Label error = (Label) windowScene.lookup("#error");
+        Label tip = (Label) windowScene.lookup("#tip");
         ImageView universityImageView =
                 (ImageView) windowScene.lookup("#universityImageView");
 
@@ -103,6 +105,7 @@ public class StartWindowTest extends InterfacesTest {
         Assertions.assertNotNull(message);
         Assertions.assertNotNull(code);
         Assertions.assertNotNull(error);
+        Assertions.assertNotNull(tip);
         Assertions.assertNotNull(universityImageView);
     }
 
@@ -112,7 +115,8 @@ public class StartWindowTest extends InterfacesTest {
     @Test
     void givenStartWindow_whenStartImageViewShowed_thenHasCorrectSizes() {
         // arrange
-        ImageView startImageView = (ImageView) windowScene.lookup("#startImageView");
+        ImageView startImageView =
+                (ImageView) windowScene.lookup("#startImageView");
         int expectedWidth = 300;
         int expectedHeight = 520;
 
@@ -148,13 +152,17 @@ public class StartWindowTest extends InterfacesTest {
     void givenStartWindow_whenMessageShowed_thenHasCorrectText() {
         // arrange
         Label message = (Label) windowScene.lookup("#message");
-        String expectedText = "Введите код для начала работы";
+        String expectedMessageText = "Введите код для начала анализа программы";
+        Label tip = (Label) windowScene.lookup("#tip");
+        String expectedTipText = "Укажите числовой код и нажмите <Enter>";
 
         // act
-        String actualText = message.getText();
+        String actualMessageText = message.getText();
+        String actualTipText = tip.getText();
 
         // assert
-        Assertions.assertEquals(expectedText, actualText);
+        Assertions.assertEquals(expectedMessageText, actualMessageText);
+        Assertions.assertEquals(expectedTipText, actualTipText);
     }
 
     /**
@@ -244,7 +252,7 @@ public class StartWindowTest extends InterfacesTest {
         // arrange
         TextField code = (TextField) windowScene.lookup("#code");
         Label error = (Label) windowScene.lookup("#error");
-        String expectedText = "Введите целое положительное число";
+        String expectedText = "Введите целое неотрицательное число";
 
         // act
         code.setText("a");

@@ -18,12 +18,13 @@
                 <Label fx:id="header" text="Добро пожаловать!"/>
             </HBox>
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 40 0 0 40;">
-                <Label fx:id="message" text="Введите код для начала работы"/>
+                <Label fx:id="message" text="Введите код для начала анализа программы"/>
             </HBox>
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 20 0 0 40;">
                 <VBox>
                     <TextField fx:id="code" promptText="Код" prefWidth="380"/>
                     <Label fx:id="error" style="-fx-text-fill: #d35244;"/>
+                    <Label fx:id="tip" text="Укажите числовой код и нажмите &lt;Enter&gt;"/>
                 </VBox>
             </HBox>
 
