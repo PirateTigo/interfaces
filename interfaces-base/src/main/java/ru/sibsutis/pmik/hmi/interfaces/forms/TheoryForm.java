@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Контроллер формы справочной информации.
@@ -40,6 +41,12 @@ public class TheoryForm {
      */
     @FXML
     HBox helpContent;
+
+    /**
+     * Контейнер меню справочной информации.
+     */
+    @FXML
+    VBox helpMenuBox;
 
     /**
      * Меню справочной информации.
@@ -83,7 +90,8 @@ public class TheoryForm {
                 - parentForm.mainMenu.getHeight()
                 - parentForm.buttons.getHeight();
         helpContent.setPrefHeight(prefHeight);
-        helpMenu.setPrefHeight(prefHeight);
+        helpMenu.setPrefHeight(prefHeight * 0.05 * getMaxMenuItems());
+        helpMenuBox.setPrefHeight(prefHeight);
     }
 
     /**
@@ -140,6 +148,13 @@ public class TheoryForm {
             ListView<String> subMenu = new ListView<>();
             subMenu.getItems().addAll(menuStructure.get(theme).keySet());
             TitledPane titledPane = new TitledPane(theme, subMenu);
+            titledPane.expandedProperty().addListener(
+                    (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    ListView<String> items = (ListView<String>) titledPane.getContent();
+                    items.getSelectionModel().select(0);
+                }
+            });
             panes.add(titledPane);
 
             // Устанавливаем обработчик выбора пункта меню
@@ -175,6 +190,22 @@ public class TheoryForm {
         webEngine.load(absoluteChapterURL.toString());
         webViewArea.getChildren().clear();
         webViewArea.getChildren().add(browser);
+    }
+
+    /**
+     * Вычисляет максимально возможное число строк меню.
+     */
+    @SuppressWarnings("unchecked")
+    private int getMaxMenuItems() {
+        int panesCount = helpMenu.getPanes().size();
+        final AtomicInteger maxInner = new AtomicInteger(0);
+        helpMenu.getPanes().forEach(pane -> {
+            ListView<String> items = (ListView<String>) pane.getContent();
+            if (maxInner.get() < items.getItems().size()) {
+                maxInner.set(items.getItems().size());
+            }
+        });
+        return panesCount - 1 + maxInner.get();
     }
 
 }
