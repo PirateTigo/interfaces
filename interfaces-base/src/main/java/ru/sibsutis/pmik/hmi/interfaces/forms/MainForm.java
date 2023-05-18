@@ -69,6 +69,10 @@ public class MainForm {
 
     private static final String BUTTON_PRESSED_CLASS = "button-pressed";
 
+    private static final String PROGRAM_ANALYSIS_HEADER = "Анализ программы";
+
+    private static final String HELP_HEADER = "Справочная информация";
+
     /**
      * Основное окно приложения.
      */
@@ -148,6 +152,12 @@ public class MainForm {
      */
     @FXML
     ImageView studentView;
+
+    /**
+     * Основной заголовок раздела программы.
+     */
+    @FXML
+    Label mainHeader;
 
     /**
      * Изображение кнопки выбора варианта.
@@ -328,6 +338,7 @@ public class MainForm {
             theoryForm.setWidth(root.getWidth());
             theoryForm.setHeight(root.getHeight());
             theoryForm.openChapter(0, 0);
+            mainHeader.setText(HELP_HEADER);
             return true;
         }
         return false;
@@ -343,6 +354,7 @@ public class MainForm {
             mainContent.forEach(node -> node.setVisible(true));
             installTooltip(THEORY_BUTTON_TIP_DEFAULT, theory);
             isTheoryOpened = !isTheoryOpened;
+            mainHeader.setText(PROGRAM_ANALYSIS_HEADER);
         }
     }
 
@@ -448,6 +460,12 @@ public class MainForm {
         initButton(TIP_IMAGE_PATH, helpView, help);
         installTooltip(HELP_BUTTON_TIP, help);
         help.setOnAction(event -> helpButtonHandler());
+
+        // Добавляем основной заголовок раздела программы
+        mainHeader.setText(PROGRAM_ANALYSIS_HEADER);
+        URL fontPath = Objects.requireNonNull(clazz.getResource(FONT_ITALIC_PATH));
+        Font font = Font.loadFont(fontPath.toExternalForm(), 28);
+        mainHeader.setFont(font);
     }
 
     /**

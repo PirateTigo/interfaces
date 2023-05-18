@@ -80,6 +80,7 @@ public class MainWindowTest extends InterfacesTest {
     @Test
     void givenMainWindow_whenShowed_thenHasItems() {
         // arrange
+        String expectedMainHeaderText = "Анализ программы";
 
         Platform.runLater(() -> {
             // act
@@ -90,6 +91,8 @@ public class MainWindowTest extends InterfacesTest {
             ToolBar buttons = (ToolBar) windowScene.lookup("#buttons");
             HBox studentBox = (HBox) windowScene.lookup("#studentBox");
             ImageView studentView = (ImageView) windowScene.lookup("#studentView");
+            Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+            String actualMainHeaderText = mainHeader.getText();
             Button variantChoice = (Button) windowScene.lookup(VARIANT_CHOICE_SELECTOR);
             ImageView variantChoiceView = (ImageView) windowScene.lookup("#variantChoiceView");
             Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
@@ -106,6 +109,8 @@ public class MainWindowTest extends InterfacesTest {
             Assertions.assertNotNull(buttons);
             Assertions.assertNotNull(studentBox);
             Assertions.assertNotNull(studentView);
+            Assertions.assertNotNull(mainHeader);
+            Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
             Assertions.assertNotNull(variantChoice);
             Assertions.assertNotNull(variantChoiceView);
             Assertions.assertNotNull(theory);
@@ -236,6 +241,7 @@ public class MainWindowTest extends InterfacesTest {
     void givenMainWindow_whenTheoryButtonPressed_thenHelpShowed() throws ExecutionException, InterruptedException {
         // arrange
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        String expectedMainHeaderText = "Справочная информация";
 
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
@@ -245,6 +251,8 @@ public class MainWindowTest extends InterfacesTest {
             completableFuture.complete("completed");
         });
         completableFuture.get();
+        Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+        String actualMainHeaderText = mainHeader.getText();
         VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
 
@@ -252,6 +260,7 @@ public class MainWindowTest extends InterfacesTest {
         Assertions.assertFalse(programContent.isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
+        Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
     }
 
     /**
@@ -265,6 +274,7 @@ public class MainWindowTest extends InterfacesTest {
         Menu menu2 = menuBar.getMenus().get(1);
         MenuItem item22 = menu2.getItems().get(1);
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
+        String expectedMainHeaderText = "Справочная информация";
 
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Platform.runLater(() -> {
@@ -276,11 +286,14 @@ public class MainWindowTest extends InterfacesTest {
         completableFuture.get();
         VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+        Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+        String actualMainHeaderText = mainHeader.getText();
 
         // assert
         Assertions.assertFalse(programContent.isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertTrue(theory.getStyleClass().contains("button-pressed"));
+        Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
     }
 
     /**
@@ -290,6 +303,9 @@ public class MainWindowTest extends InterfacesTest {
     @Test
     void givenMainWindow_whenTheoryButtonPressedTwice_thenProgramContentIsShowed() throws ExecutionException, InterruptedException {
         // arrange
+        String expectedMainHeaderText = "Анализ программы";
+
+        // act
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
         CompletableFuture<String> completableFuture1 = new CompletableFuture<>();
         Platform.runLater(() -> {
@@ -306,12 +322,15 @@ public class MainWindowTest extends InterfacesTest {
         completableFuture2.get();
         VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+        Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+        String actualMainHeaderText = mainHeader.getText();
 
         // assert
         Assertions.assertTrue(programContent.getParent().isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertFalse(helpContent.getParent().isVisible());
         Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+        Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
     }
 
     /**
@@ -326,6 +345,7 @@ public class MainWindowTest extends InterfacesTest {
         MenuItem item12 = menu1.getItems().get(1);
         Button theory = (Button) windowScene.lookup(THEORY_SELECTOR);
         MainForm mainForm = (MainForm) controller;
+        String expectedMainHeaderText = "Анализ программы";
 
         Platform.runLater(() -> {
             // act
@@ -334,12 +354,15 @@ public class MainWindowTest extends InterfacesTest {
             item12.fire();
             VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
             HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+            Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+            String actualMainHeaderText = mainHeader.getText();
 
             // assert
             Assertions.assertTrue(programContent.getParent().isVisible());
             Assertions.assertNotNull(helpContent);
             Assertions.assertFalse(helpContent.getParent().isVisible());
             Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+            Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
         });
     }
 
@@ -359,17 +382,21 @@ public class MainWindowTest extends InterfacesTest {
         });
         completableFuture1.get();
         ImageView studentView = (ImageView) windowScene.lookup("#studentView");
+        String expectedMainHeaderText = "Анализ программы";
 
         //act
         robot.clickOn(studentView, Motion.DEFAULT, MouseButton.PRIMARY);
         VBox programContent = (VBox) windowScene.lookup(PROGRAM_CONTENT_SELECTOR);
         HBox helpContent = (HBox) windowScene.lookup(HELP_CONTENT_SELECTOR);
+        Label mainHeader = (Label) windowScene.lookup("#mainHeader");
+        String actualMainHeaderText = mainHeader.getText();
 
         // assert
         Assertions.assertTrue(programContent.getParent().isVisible());
         Assertions.assertNotNull(helpContent);
         Assertions.assertFalse(helpContent.getParent().isVisible());
         Assertions.assertFalse(theory.getStyleClass().contains("button-pressed"));
+        Assertions.assertEquals(expectedMainHeaderText, actualMainHeaderText);
     }
 
     /**
